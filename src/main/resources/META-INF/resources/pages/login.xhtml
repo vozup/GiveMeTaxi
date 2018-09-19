@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<title>
+    Login Page
+</title>
+<h:head>
+    <h:outputStylesheet name="primefaces/components.css"/>
+</h:head>
+<h:body>
+    <div class="ui-g">
+        <div class="ui-g-3" style="margin: 0 auto">
+            <h:form>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Login"/>
+                    <p:inputText value="#{checkUser.login}"/>
+
+                    <p:outputLabel value="Password"/>
+                    <p:inputText value="#{checkUser.password}"/>
+
+                    <p:commandButton action="#{checkUser.checkPassword}" value="Login"/>
+                </p:panelGrid>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>
