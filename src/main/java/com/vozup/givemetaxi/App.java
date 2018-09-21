@@ -10,8 +10,5 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 
-    @RequestMapping("/")
-    public String login(){
-        return "goToLoginPage";
-    }
+
 }

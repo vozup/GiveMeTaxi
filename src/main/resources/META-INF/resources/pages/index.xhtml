@@ -11,9 +11,80 @@
 </title>
 <h:head>
     <h:outputStylesheet name="primefaces/components.css"/>
+    <h:outputStylesheet name="style/style.css"/>
 </h:head>
 <h:body>
 
+    <p:layout fullPage="true" style="border: 0" >
+        <p:layoutUnit id="top" position="north" size="50">
+                <p:outputLabel value="Оператор: #{operator.operatorLogin} № #{operator.id}"/>
+                <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="float: right"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit id="bottom" position="south" size="100">
+
+        </p:layoutUnit>
+
+        <p:layoutUnit id="left" position="west" size="300" resizable="false" closable="false" collapsible="true"
+                      header="Очередь заказов и сообщений" minSize="300">
+            <p:accordionPanel>
+                <p:tab title="Очередь звонков">
+                    <h:outputText value="Menu 2 Content" />
+                </p:tab>
+
+                <p:tab title="Очередь сообщений">
+                    <h:outputText value="Menu 2 Content" />
+                </p:tab>
+
+            </p:accordionPanel>
+        </p:layoutUnit>
+
+        <p:layoutUnit id="right" position="east" size="300" header="Доступные машины" resizable="false" closable="false"
+                      collapsible="true" style="text-align:center" >
+
+
+            <p:commandButton value="Show Dialog" onclick="PF('dlg').show();" type="button" style="margin-top:10px"/>
+
+        </p:layoutUnit>
+
+        <p:layoutUnit id="center" position="center">
+            <h:form>
+                <p:panelGrid columns="2" id="orderForm">
+                    <p:outputLabel value="Откуда"/>
+                    <p:inputText value="#{testBean.name1}"/>
+
+                    <p:outputLabel value="Куда"/>
+                    <p:inputText value="#{testBean.name2}"/>
+
+                    <p:outputLabel for="date" value="Дата"/>
+                    <p:selectOneRadio id="date" value="#{orderDate.date}" rendered="true">
+                        <f:selectItem itemLabel="Сейчас" itemValue="now" />
+                    </p:selectOneRadio>
+
+                    <p:outputLabel for="car" value="Авто:"/>
+                    <p:selectOneRadio id="car" value="#{carServiceRb.carService}" required="true">
+                        <f:selectItem itemLabel="Стандарт" itemValue="standart" />
+                        <f:selectItem itemLabel="Комфорт" itemValue="comfort" />
+                        <f:selectItem itemLabel="Бизнес" itemValue="buisnes" />
+                        <f:selectItem itemLabel="Универсал" itemValue="universal" />
+                        <f:selectItem itemLabel="Микроавтобус" itemValue="microbus" />
+                    </p:selectOneRadio>
+
+                    <p:outputLabel for="additionalService" value="Дополнительные услуги:"/>
+                    <p:selectManyCheckbox id="additionalService" value="#{additionalService.additionalServiceSet}" layout="grid" columns="3">
+                        <f:selectItems value="#{additionalService.selectedAdditionalService}" var="additionalService"
+                                       itemLabel="#{additionalService}" itemValue="#{additionalService}" />
+                    </p:selectManyCheckbox>
+                </p:panelGrid>
+            </h:form>
+
+        </p:layoutUnit>
+
+    </p:layout>
+
+    <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
+        <h:outputText value="Resistance to PrimeFaces is futile!" />
+    </p:dialog>
 
 
 

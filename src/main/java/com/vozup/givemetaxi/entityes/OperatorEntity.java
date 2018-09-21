@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table
-public class Operator {
+public class OperatorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

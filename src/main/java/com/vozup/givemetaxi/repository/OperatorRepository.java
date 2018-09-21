@@ -1,8 +1,8 @@
 package com.vozup.givemetaxi.repository;
 
-import com.vozup.givemetaxi.entityes.Operator;
+import com.vozup.givemetaxi.entityes.OperatorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OperatorRepository extends JpaRepository<Operator, Long> {
-    Operator findByLogin(String login);
+public interface OperatorRepository extends JpaRepository<OperatorEntity, Long> {
+    OperatorEntity findByLogin(String login);
 }

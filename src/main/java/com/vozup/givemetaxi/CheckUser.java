@@ -1,6 +1,6 @@
 package com.vozup.givemetaxi;
 
-import com.vozup.givemetaxi.entityes.Operator;
+import com.vozup.givemetaxi.entityes.OperatorEntity;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 
 import javax.inject.Inject;
@@ -18,9 +18,10 @@ public class CheckUser {
 
     public String checkPassword() {
         if (login != null && password != null) {
-            Operator operator = repository.findByLogin(this.login);
+            OperatorEntity operatorEntity = repository.findByLogin(this.login);
 
-            if (operator.getLogin().equals(login) && operator.getPassword().equals(password)){
+            if (operatorEntity.getLogin().equals(login) && operatorEntity.getPassword().equals(password)){
+                System.out.println();
                 return "goToHomePage";
             }
         }
