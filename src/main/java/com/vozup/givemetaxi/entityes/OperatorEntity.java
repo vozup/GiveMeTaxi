@@ -3,7 +3,7 @@ package com.vozup.givemetaxi.entityes;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "operator")
 public class OperatorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

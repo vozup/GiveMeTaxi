@@ -29,11 +29,11 @@ public class AdditionalService {
         this.selectedAdditionalService = selectedAdditionalService;
     }
 
-    public Set<String> getAdditionalServiceList() {
+    public Set<String> getAdditionalServiceSet() {
         return additionalServiceSet;
     }
 
-    public void setAdditionalServiceList(Set<String> additionalServiceList) {
-        this.additionalServiceSet = additionalServiceList;
+    public void setAdditionalServiceSet(Set<String> additionalServiceSet) {
+        this.additionalServiceSet = additionalServiceSet;
     }
 }
