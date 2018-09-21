@@ -1,6 +1,6 @@
 package com.vozup.givemetaxi;
 
-import com.vozup.givemetaxi.entityes.OperatorEntity;
+import com.vozup.givemetaxi.entities.OperatorEntity;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 
 import javax.inject.Inject;

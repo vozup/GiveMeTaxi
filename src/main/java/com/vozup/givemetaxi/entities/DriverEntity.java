@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi.entityes;
+package com.vozup.givemetaxi.entities;
 
 import javax.persistence.*;
 

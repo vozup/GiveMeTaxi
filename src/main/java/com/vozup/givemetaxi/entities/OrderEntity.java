@@ -1,7 +1,6 @@
-package com.vozup.givemetaxi.entityes;
+package com.vozup.givemetaxi.entities;
 
 import com.vozup.givemetaxi.CarType;
-import com.vozup.givemetaxi.views.AdditionalService;
 
 import javax.persistence.*;
 import java.util.Date;
