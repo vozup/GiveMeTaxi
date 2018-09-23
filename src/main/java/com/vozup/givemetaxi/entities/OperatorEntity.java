@@ -1,5 +1,6 @@
 package com.vozup.givemetaxi.entities;
 
+import javax.inject.Singleton;
 import javax.persistence.*;
 
 @Entity

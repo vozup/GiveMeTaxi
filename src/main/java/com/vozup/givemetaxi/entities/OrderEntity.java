@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "orderTable")
+@Table(name = "orders")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +19,8 @@ public class OrderEntity {
     private CarType carType;
     private String additionalService;
     private String messageForDriver;
+    private boolean isAccessible;
+    private boolean isReceived;
 
     public long getId() {
         return id;
@@ -74,5 +76,21 @@ public class OrderEntity {
 
     public void setMessageForDriver(String messageForDriver) {
         this.messageForDriver = messageForDriver;
+    }
+
+    public boolean isAccessible() {
+        return isAccessible;
+    }
+
+    public void setAccessible(boolean accessible) {
+        isAccessible = accessible;
+    }
+
+    public boolean isReceived() {
+        return isReceived;
+    }
+
+    public void setReceived(boolean received) {
+        isReceived = received;
     }
 }

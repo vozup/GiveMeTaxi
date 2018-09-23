@@ -12,6 +12,7 @@
 <h:head>
     <h:outputStylesheet name="primefaces/components.css"/>
     <h:outputStylesheet name="style/style.css"/>
+    <h:outputScript name="ru.js"/>
 </h:head>
 <h:body>
 
@@ -54,13 +55,12 @@
                     <p:outputLabel value="Откуда"/>
                     <p:inputText value="#{testBean.name1}" size="50"/>
 
-                    <p:outputLabel value="Куда" size="50"/>
-                    <p:inputText value="#{testBean.name2}"/>
+                    <p:outputLabel value="Куда"/>
+                    <p:inputText value="#{testBean.name2}" size="50"/>
 
-                    <p:outputLabel for="date" value="Дата"/>
-                    <p:selectOneRadio id="date" value="#{orderDate.date}" rendered="true">
-                        <f:selectItem itemLabel="Сейчас" itemValue="now" />
-                    </p:selectOneRadio>
+                    <p:outputLabel for="datetime" value="Datetime:" />
+                    <p:calendar id="datetime" value="#{orderDate.date}" pattern="MM/dd/yyyy HH:mm"
+                                showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru"/>
 
                     <p:outputLabel for="car" value="Авто:"/>
                     <p:selectOneRadio id="car" value="#{carServiceRb.carService}" required="true" style="text-align:left">
@@ -79,7 +79,7 @@
                     </p:selectManyCheckbox>
 
                     <p:outputLabel for="messageForDriver" value="Дополнительная информация для водителя"/>
-                    <p:inputTextarea id="messageForDriver"/>
+                    <p:inputTextarea id="messageForDriver" />
 
                     <p:commandButton value="В обработку"/>
                 </p:panelGrid>
