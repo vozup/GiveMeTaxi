@@ -10,7 +10,7 @@ import java.util.Date;
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String fromAddress;
     private String toAddress;
     @Temporal(TemporalType.DATE)

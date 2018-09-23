@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     //Типа сервис(Стандарт, Комфорт, Бизнес, Универсал, Микроавтобус)
     @Enumerated(EnumType.STRING)
     private CarType carType;
