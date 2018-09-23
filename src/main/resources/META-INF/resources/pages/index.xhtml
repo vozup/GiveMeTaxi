@@ -22,6 +22,45 @@
                 <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="float: right"/>
         </p:layoutUnit>
 
+        <p:layoutUnit id="center" position="center">
+            <h:form>
+                <p:panelGrid columns="2" id="orderForm" style="margin:0 auto;font-size: 14px" >
+
+                    <p:outputLabel value="Откуда"/>
+                    <p:inputText value="#{takeOrder.fromAddress}" size="50"/>
+
+                    <p:outputLabel value="Куда"/>
+                    <p:inputText value="#{takeOrder.toAddress}" size="50"/>
+
+                    <p:outputLabel for="datetime" value="Datetime:" />
+                    <p:calendar id="datetime" value="#{takeOrder.onDate}" pattern="MM/dd/yyyy HH:mm"
+                                showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru"/>
+
+                    <p:outputLabel for="car" value="Авто:"/>
+                    <p:selectOneRadio id="car" value="#{takeOrder.carType}" required="true" style="text-align:left">
+                        <f:selectItem itemLabel="Стандарт" itemValue="STANDART" />
+                        <f:selectItem itemLabel="Комфорт" itemValue="COMFORT" />
+                        <f:selectItem itemLabel="Бизнес" itemValue="BUISNESS" />
+                        <f:selectItem itemLabel="Универсал" itemValue="UNIVERSAL" />
+                        <f:selectItem itemLabel="Микроавтобус" itemValue="MICROBUS" />
+                    </p:selectOneRadio>
+
+                    <p:outputLabel for="additionalService" value="Дополнительные услуги:"/>
+                    <p:selectManyCheckbox id="additionalService" value="#{additionalService.selectedAdditionalService}"
+                                          layout="grid" columns="3">
+                        <f:selectItems value="#{additionalService.additionalServiceSet}" var="service"
+                                       itemLabel="#{service}" itemValue="#{service}" />
+                    </p:selectManyCheckbox>
+
+                    <p:outputLabel for="messageForDriver" value="Дополнительная информация для водителя"/>
+                    <p:inputTextarea id="messageForDriver" value="#{takeOrder.otherInfoToDriver}"/>
+
+                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:layoutUnit>
+
         <p:layoutUnit id="bottom" position="south" size="100">
 
         </p:layoutUnit>
@@ -45,45 +84,6 @@
 
 
             <p:commandButton value="Show Dialog" onclick="PF('dlg').show();" type="button" style="margin-top:10px"/>
-
-        </p:layoutUnit>
-
-        <p:layoutUnit id="center" position="center">
-            <h:form>
-                <p:panelGrid columns="2" id="orderForm" style="margin:0 auto;font-size: 14px" >
-
-                    <p:outputLabel value="Откуда"/>
-                    <p:inputText value="#{testBean.name1}" size="50"/>
-
-                    <p:outputLabel value="Куда"/>
-                    <p:inputText value="#{testBean.name2}" size="50"/>
-
-                    <p:outputLabel for="datetime" value="Datetime:" />
-                    <p:calendar id="datetime" value="#{orderDate.date}" pattern="MM/dd/yyyy HH:mm"
-                                showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru"/>
-
-                    <p:outputLabel for="car" value="Авто:"/>
-                    <p:selectOneRadio id="car" value="#{carServiceRb.carService}" required="true" style="text-align:left">
-                        <f:selectItem itemLabel="Стандарт" itemValue="standart" />
-                        <f:selectItem itemLabel="Комфорт" itemValue="comfort" />
-                        <f:selectItem itemLabel="Бизнес" itemValue="buisnes" />
-                        <f:selectItem itemLabel="Универсал" itemValue="universal" />
-                        <f:selectItem itemLabel="Микроавтобус" itemValue="microbus" />
-                    </p:selectOneRadio>
-
-                    <p:outputLabel for="additionalService" value="Дополнительные услуги:"/>
-                    <p:selectManyCheckbox id="additionalService" value="#{additionalService.selectedAdditionalService}"
-                                          layout="grid" columns="3">
-                        <f:selectItems value="#{additionalService.additionalServiceSet}" var="service"
-                                       itemLabel="#{service}" itemValue="#{service}" />
-                    </p:selectManyCheckbox>
-
-                    <p:outputLabel for="messageForDriver" value="Дополнительная информация для водителя"/>
-                    <p:inputTextarea id="messageForDriver" />
-
-                    <p:commandButton value="В обработку"/>
-                </p:panelGrid>
-            </h:form>
 
         </p:layoutUnit>
 

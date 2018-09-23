@@ -4,30 +4,40 @@ import com.vozup.givemetaxi.CarType;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.sql.Time;
 
 @Entity
 @Table(name = "orders")
 public class OrderEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String fromAddress;
     private String toAddress;
     @Temporal(TemporalType.DATE)
     private Date date;
+    private Time time;
     @Enumerated(EnumType.STRING)
     private CarType carType;
     private String additionalService;
     private String messageForDriver;
-    private boolean isAccessible;
     private boolean isReceived;
 
-    public long getId() {
+    public Long getId() {
+
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     public String getFromAddress() {
@@ -76,14 +86,6 @@ public class OrderEntity {
 
     public void setMessageForDriver(String messageForDriver) {
         this.messageForDriver = messageForDriver;
-    }
-
-    public boolean isAccessible() {
-        return isAccessible;
-    }
-
-    public void setAccessible(boolean accessible) {
-        isAccessible = accessible;
     }
 
     public boolean isReceived() {

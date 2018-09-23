@@ -1,5 +1,6 @@
 package com.vozup.givemetaxi;
 
+
 public enum CarType {
     STANDART,
     COMFORT,
