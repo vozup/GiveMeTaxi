@@ -3,8 +3,9 @@ package com.vozup.givemetaxi.entities;
 import com.vozup.givemetaxi.CarType;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Time;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "orders")

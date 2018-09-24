@@ -1,11 +1,13 @@
-package com.vozup.givemetaxi;
+package com.vozup.givemetaxi.views;
 
+import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.OrderRepository;
-import com.vozup.givemetaxi.views.AdditionalService;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.sql.Time;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,15 +32,7 @@ public class TakeOrder {
     public void actionTakeOrder(){
         additionalService = service.getSelectedAdditionalService();
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-
-        LOGGER.info(fromAddress + " " +
-        toAddress + " " +
-        //dateFormat.format(onDate) + " " +
-                onDate + " " +
-                carType + " " +
-                additionalService.toString() + " " +
-                otherInfoToDriver);
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
         OrderEntity orderEntity = new OrderEntity();
         orderEntity.setReceived(false);
@@ -46,13 +40,25 @@ public class TakeOrder {
         orderEntity.setToAddress(toAddress);
         //-----
         orderEntity.setDate(onDate);
-        //orderEntity.setTime(onDate);
+        orderEntity.setTime(Time.valueOf(timeFormat.format(onDate)));
 
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
         orderEntity.setCarType(CarType.valueOf(carType));
 
-        //orderRepository.save(orderEntity);
+        try {
+            orderRepository.save(orderEntity);
+        }catch (DataIntegrityViolationException e){
+                e.printStackTrace();
+                LOGGER.info(fromAddress + " " +
+                        toAddress + " " +
+                        onDate + " " +
+                        timeFormat.format(onDate) + " " +
+                        carType + " " +
+                        additionalService.toString() + " " +
+                        otherInfoToDriver);
+        }
+
     }
 
     public String getCarType() {
