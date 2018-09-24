@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
-public class CheckUser {
+public class CheckOperator {
     @Inject
     private OperatorRepository repository;
 
@@ -22,7 +22,7 @@ public class CheckUser {
 
             if (operatorEntity.getLogin().equals(login) && operatorEntity.getPassword().equals(password)){
                 System.out.println();
-                return "goToHomePage";
+                return "goToOperatorHomePage";
             }
         }
         return "goToInvalidPasswordPage";

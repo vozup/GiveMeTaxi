@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<title>
+    User: #{checkOperator.login}
+</title>
+<h:head>
+    <h:outputStylesheet name="primefaces/components.css"/>
+    <h:outputStylesheet name="style/style.css"/>
+    <h:outputScript name="style/js/ru.js"/>
+</h:head>
+<h:body>
+
+    <p:layout fullPage="true" style="border: 0" >
+        <p:layoutUnit id="top" position="north" size="50">
+                <p:outputLabel value="Оператор: #{checkOperator.name} #{checkOperator.lastName}"/>
+                <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="float: right"/>
+        </p:layoutUnit>
+
+        <p:layoutUnit id="center" position="center">
+            <h:form>
+                <p:panelGrid columns="2" id="orderForm" style="margin:0 auto;font-size: 14px" >
+
+                    <p:outputLabel value="Откуда"/>
+                    <p:inputText value="#{takeOrder.fromAddress}" size="50"/>
+
+                    <p:outputLabel value="Куда"/>
+                    <p:inputText value="#{takeOrder.toAddress}" size="50"/>
+
+                    <p:outputLabel for="datetime" value="Datetime:" />
+                    <p:calendar id="datetime" value="#{takeOrder.onDate}" pattern="MM/dd/yyyy HH:mm"
+                                showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru"/>
+
+                    <p:outputLabel for="car" value="Авто:"/>
+                    <p:selectOneRadio id="car" value="#{takeOrder.carType}" required="true" style="text-align:left">
+                        <f:selectItem itemLabel="Стандарт" itemValue="STANDART" />
+                        <f:selectItem itemLabel="Комфорт" itemValue="COMFORT" />
+                        <f:selectItem itemLabel="Бизнес" itemValue="BUISNESS" />
+                        <f:selectItem itemLabel="Универсал" itemValue="UNIVERSAL" />
+                        <f:selectItem itemLabel="Микроавтобус" itemValue="MICROBUS" />
+                    </p:selectOneRadio>
+
+                    <p:outputLabel for="additionalService" value="Дополнительные услуги:"/>
+                    <p:selectManyCheckbox id="additionalService" value="#{additionalService.selectedAdditionalService}"
+                                          layout="grid" columns="3">
+                        <f:selectItems value="#{additionalService.additionalServiceSet}" var="service"
+                                       itemLabel="#{service}" itemValue="#{service}" />
+                    </p:selectManyCheckbox>
+
+                    <p:outputLabel for="messageForDriver" value="Дополнительная информация для водителя"/>
+                    <p:inputTextarea id="messageForDriver" value="#{takeOrder.otherInfoToDriver}"/>
+
+                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}"/>
+                </p:panelGrid>
+            </h:form>
+
+        </p:layoutUnit>
+
+        <p:layoutUnit id="bottom" position="south" size="100">
+
+        </p:layoutUnit>
+
+        <p:layoutUnit id="left" position="west" size="300" resizable="false" closable="false" collapsible="true"
+                      header="Очередь заказов и сообщений" minSize="300">
+            <p:accordionPanel>
+                <p:tab title="Очередь звонков">
+                    <h:outputText value="Menu 2 Content" />
+                </p:tab>
+
+                <p:tab title="Очередь сообщений">
+                    <h:outputText value="Menu 2 Content" />
+                </p:tab>
+
+            </p:accordionPanel>
+        </p:layoutUnit>
+
+        <p:layoutUnit id="right" position="east" size="200" header="Доступные машины" resizable="false" closable="false"
+                      collapsible="true" style="text-align:center" >
+
+
+            <p:commandButton value="Show Dialog" onclick="PF('dlg').show();" type="button" style="margin-top:10px"/>
+
+        </p:layoutUnit>
+
+    </p:layout>
+
+    <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
+        <h:outputText value="Resistance to PrimeFaces is futile!" />
+    </p:dialog>
+
+
+
+
+
+</h:body>
+</html>

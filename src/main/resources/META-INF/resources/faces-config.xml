@@ -7,13 +7,23 @@
     <navigation-rule>
         <from-view-id>*</from-view-id>
         <navigation-case>
-            <from-outcome>goToHomePage</from-outcome>
-            <to-view-id>pages/index.xhtml</to-view-id>
+            <from-outcome>goToOperatorHomePage</from-outcome>
+            <to-view-id>pages/operator/index.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
-            <from-outcome>goToLoginPage</from-outcome>
-            <to-view-id>pages/login.xhtml</to-view-id>
+            <from-outcome>goToSiteManagerHomePage</from-outcome>
+            <to-view-id>pages/admin/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToOperatorLoginPage</from-outcome>
+            <to-view-id>pages/operator/login.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToSiteManagerLoginPage</from-outcome>
+            <to-view-id>pages/admin/login.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>

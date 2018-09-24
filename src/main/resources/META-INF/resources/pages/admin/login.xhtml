@@ -18,12 +18,12 @@
             <h:form>
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Login"/>
-                    <p:inputText value="#{checkUser.login}"/>
+                    <p:inputText value="#{checkOperator.login}"/>
 
                     <p:outputLabel value="Password"/>
-                    <p:inputText value="#{checkUser.password}"/>
+                    <p:inputText value="#{checkOperator.password}"/>
 
-                    <p:commandButton action="#{checkUser.checkPassword}" value="Login"/>
+                    <p:commandButton action="#{checkOperator.checkPassword}" value="Login"/>
                 </p:panelGrid>
             </h:form>
         </div>

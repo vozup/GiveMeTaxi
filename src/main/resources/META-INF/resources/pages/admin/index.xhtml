@@ -7,18 +7,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <title>
-    User: #{checkUser.login}
+    Admin Page
 </title>
 <h:head>
     <h:outputStylesheet name="primefaces/components.css"/>
     <h:outputStylesheet name="style/style.css"/>
-    <h:outputScript name="ru.js"/>
+    <h:outputScript name="style/js/ru.js"/>
 </h:head>
 <h:body>
 
     <p:layout fullPage="true" style="border: 0" >
         <p:layoutUnit id="top" position="north" size="50">
-                <p:outputLabel value="Оператор: #{operator.operatorLogin} № #{operator.id}"/>
+                <p:outputLabel value="Оператор: #{checkOperator.name} #{checkOperator.lastName}"/>
                 <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="float: right"/>
         </p:layoutUnit>
 

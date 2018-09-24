@@ -13,7 +13,9 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String fromAddress;
+    @Column(nullable = false)
     private String toAddress;
     @Temporal(TemporalType.DATE)
     private Date date;
