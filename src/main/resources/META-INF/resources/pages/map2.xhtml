@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Hello</title>
+
+    <script type="text/javascript">
+        function initMap() {
+            var mapOptions = {
+                zoom: 11,
+                center: {lat: 50.4294963, lng: 30.53469569999993}
+            };
+            googleMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+            googleMapRouteRenderer = new google.maps.DirectionsRenderer();
+            googleMapRouteRenderer.setMap(googleMap);
+        }
+        function calcRoute() {
+            var request = {
+                origin: PF('addressFrom').jq.val(),
+                destination: PF('addressTo').jq.val(),
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+            new google.maps.DirectionsService().route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    googleMapRouteRenderer.setDirections(response);
+                    var distance = response.routes[0].legs[0].distance;
+                    sendDistanceToServer(distance.text, distance.value);
+                } else {
+                    alert("Не удается найти маршрут " + start.toUrlValue(6) + " к "
+                        + end.toUrlValue(6) + " status: " + status);
+                }
+            });
+        }
+        function sendDistanceToServer(distanceText, distanceValue) {
+            PF('distanceText').jq.val(distanceText);
+            PF('distanceValue').jq.val(distanceValue);
+            PF('sendResults').jq.click();
+        }
+    </script>
+
+    <script defer="defer" type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpraOK2IzV4OR_h5Gi8YbCnUL4OFDaeSs&amp;callback=initMap">
+    </script>
+
+</h:head>
+
+<h:body>
+
+    <p:growl>
+        <p:autoUpdate/>
+    </p:growl>
+
+    <h:form id="myForm">
+        <h:panelGrid columns="2">
+            <p:outputLabel value="адресс откуда:"/>
+            <p:inputText widgetVar="addressFrom" value="киев леси украинки 24Б" id="pac-input"/>
+            <p:outputLabel value="адресс куда:"/>
+            <p:inputText widgetVar="addressTo" value="киев метро оболонь"/>
+            <p:button value="проложить маршрут" onclick="calcRoute(); return false;"/>
+            <br/>
+
+        </h:panelGrid>
+    </h:form>
+
+    <h:form id="formResult">
+        <p:inputText type="hidden" widgetVar="distanceText" value="#{mapTest.distanceText}"/>
+        <p:inputText type="hidden" widgetVar="distanceValue" value="#{mapTest.distanceValue}"/>
+        <p:commandButton widgetVar="sendResults" style="display: none;"
+                         actionListener="#{mapTest.showDistance}"/>
+    </h:form>
+
+    <br/>
+
+    <div id="map" style="width: 100%; height: 500px"/>
+
+</h:body>
+</html>
