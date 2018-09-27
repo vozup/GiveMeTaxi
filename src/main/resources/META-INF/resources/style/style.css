@@ -1,3 +1,19 @@
+body{
+    font-size: 14px;
+}
+
 .ui-clock{
     float: right;
+}
+
+.ui-layout-unit-content{
+    width: 100%;
+}
+
+.column-center-form{
+    width: 20%;
+}
+
+#driverDetailForm button{
+    width: inherit;
 }

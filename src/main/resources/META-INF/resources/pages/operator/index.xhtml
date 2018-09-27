@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -27,10 +26,11 @@
             googleMapRouteRenderer = new google.maps.DirectionsRenderer();
             googleMapRouteRenderer.setMap(map);
             //
-            inputFrom = document.getElementById('myForm:input-from');
-            inputTo = document.getElementById('myForm:input-to');
+            inputFrom = document.getElementById('centerForm:input-from');
+            inputTo = document.getElementById('centerForm:input-to');
             var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
             var autocompleteTo = new google.maps.places.Autocomplete(inputTo);
+
             // Bind the map's bounds (viewport) property to the autocomplete object,
             // so that the autocomplete requests use the current map bounds for the
             // bounds option in the request.
@@ -116,7 +116,7 @@
     </script>
 </h:head>
 <h:body>
-    <p:growl/>
+    <p:growl showDetail="false"/>
 
     <p:layout fullPage="true" style="border: 0" >
         <!--TOP-->
@@ -129,22 +129,24 @@
         <!--CENTER-->
         <p:layoutUnit id="center" position="center">
             <h:form id="centerForm">
-                <p:panelGrid columns="2" id="orderForm" style="margin:0 auto;font-size: 14px" >
+                <p:panelGrid columns="2" id="orderForm" style="width: 100%" columnClasses="column-center-form">
                     <p:outputLabel value="Телефон"/>
-                    <p:inputText value="#{takeOrder.clientPhoneNumber}" size="50" disabled="true"/>
+                    <p:inputText id="clientPhonenumber" value="#{takeOrder.clientPhoneNumber}" size="50" disabled="true"/>
 
                     <p:outputLabel value="Откуда"/>
-                    <p:inputText value="#{takeOrder.fromAddress}" widgetVar="fromAddress" size="50"/>
+                    <p:inputText id="input-from" value="#{takeOrder.fromAddress}" widgetVar="fromAddress" size="50"/>
 
                     <p:outputLabel value="Куда"/>
-                    <p:inputText value="#{takeOrder.toAddress}" widgetVar="toAddress" size="50"/>
+                    <p:inputText id="input-to" value="#{takeOrder.toAddress}" widgetVar="toAddress" size="50"/>
 
                     <p:outputLabel for="datetime" value="Datetime:" />
                     <p:calendar id="datetime" value="#{takeOrder.onDate}" pattern="MM/dd/yyyy HH:mm"
-                                showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru"/>
+                                showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru" required="true"
+                                validatorMessage="Обязательное поле"/>
 
                     <p:outputLabel for="car" value="Авто:"/>
-                    <p:selectOneRadio id="car" value="#{takeOrder.carType}" required="true" style="text-align:left">
+                    <p:selectOneRadio id="car" value="#{takeOrder.carType}" required="true" style="text-align:left"
+                                      validatorMessage="Обязательное поле">
                         <f:selectItem itemLabel="Стандарт" itemValue="STANDART" />
                         <f:selectItem itemLabel="Комфорт" itemValue="COMFORT" />
                         <f:selectItem itemLabel="Бизнес" itemValue="BUISNESS" />
@@ -168,21 +170,30 @@
                     <p:outputLabel value="ДистанцияT"/>
                     <p:inputText value="#{takeOrder.distanceText}" widgetVar="distanceText" id="distanceText"/>
 
-                    <p:button value="проложить маршрут" onclick="calcRoute(); return false;"
+                    <p:button value="Проложить маршрут" onclick="calcRoute(); return false;"
                               update=":centerForm:distanceValue,:centerForm:distanceText"/>
 
                     <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}" widgetVar="sendResults"
-                                     update=":orderQueryForm,distanceValue,distanceText"/>
+                                     update=":orderQueryForm,:centerForm:distanceValue,:centerForm:distanceText"/>
                 </p:panelGrid>
             </h:form>
+            <h:form id="formResult">
+                <p:inputText type="hidden" widgetVar="distanceText" value="#{mapTest.distanceText}"/>
+                <p:inputText type="hidden" widgetVar="distanceValue" value="#{mapTest.distanceValue}"/>
+                <p:commandButton widgetVar="sendResults" style="display: none;"
+                                 actionListener="#{mapTest.showDistance}"/>
+            </h:form>
+
+            <div id="map" style="width: 100%; height: 120px"/>
 
         </p:layoutUnit>
         <!--BOTTOM-->
         <p:layoutUnit id="bottom" position="south" size="100">
             <h:form id="orderQueryForm">
-                <p:growl id="msgs" showDetail="true" />
+                <p:growl id="msgs" showDetail="false" />
 
-                <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50">
+                <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50"
+                             rowStyleClass="bottom-row">
                     <p:column headerText="Id">
                         <h:outputText value="#{query.id}" />
                     </p:column>
@@ -207,35 +218,26 @@
                     <p:column headerText="Принят?">
                         <h:outputText value="#{query.received}" />
                     </p:column>
-                    <p:column style="width:32px;text-align: center">
-                        <p:commandButton update=":orderQueryForm:orderQuery" oncomplete="PF('orderDialog').show()"
-                                         icon="ui-icon-search" title="View">
-                            <f:setPropertyActionListener value="#{query}" target="#{orderQuery.selectedOrder}" />
-                        </p:commandButton>
-                    </p:column>
                 </p:dataTable>
-
             </h:form>
         </p:layoutUnit>
         <!--LEFT-->
-        <p:layoutUnit id="left" position="west" size="250" resizable="false" closable="false" collapsible="true"
-                      style="margin: left"
-                      header="Очередь заказов и сообщений" minSize="300">
+        <p:layoutUnit id="left" position="west" size="300" resizable="false" closable="false" collapsible="true"
+                      header="Очередь заказов и сообщений">
 
             <p:accordionPanel id="calls">
                 <p:tab title="Очередь звонков">
                     <h:form>
-                        <p:repeat var="call" value="#{callList.calls}"
-                                  mode="inline" scrollHeight="260" styleClass="leftContainer">
-
-                            <h:panelGrid columns="1">
-                                <p:outputPanel>
-                                    <p:commandButton update="calls,centerForm:orderForm" value="#{call.phoneNumber}" action="#{callList.answer}">
-                                        <f:setPropertyActionListener value="#{call}" target="#{callList.selectedCall}" />
-                                    </p:commandButton>
-                                </p:outputPanel>
-                            </h:panelGrid>
-                        </p:repeat>
+                                <p:repeat var="call" value="#{callList.calls}"
+                                          mode="inline" scrollHeight="260" styleClass="leftContainer">
+                                    <p:outputPanel>
+                                        <p:commandButton update="calls,centerForm:clientPhonenumber"
+                                                         value="#{call.phoneNumber}" action="#{callList.answer}"
+                                                         style="width: 100%">
+                                            <f:setPropertyActionListener value="#{call}" target="#{callList.selectedCall}" />
+                                        </p:commandButton>
+                                    </p:outputPanel>
+                                </p:repeat>
                     </h:form>
                 </p:tab>
 
@@ -246,14 +248,57 @@
             </p:accordionPanel>
         </p:layoutUnit>
         <!--RIGHT-->
-        <p:layoutUnit id="right" position="east" size="300" header="Доступные машины" resizable="false" closable="false"
+        <p:layoutUnit id="right" position="east" size="320" header="Доступные машины" resizable="false" closable="false"
                       style="margin-left: 0"
                       collapsible="true" >
 
-            <h:form>
-                <p:dataList value="#{showDriver.drivers}" var="driver" type="ordered">
-                    #{driver.firstName}, #{driver.car.carType},  #{driver.car.carNumber}
-                </p:dataList>
+            <h:form id="driverDetailForm">
+                <p:growl id="driverDetailmsg" showDetail="false" />
+
+                <p:dataTable id="driverDT" value="#{showDriver.drivers}" var="driver" style="font-size: 12px">
+                    <p:column>
+                        <h:outputText value="#{driver.firstName}" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{driver.car.carType}" />
+                    </p:column>
+                    <p:column>
+                        <h:outputText value="#{driver.car.carNumber}" />
+                    </p:column>
+                    <p:column style="width:16px;text-align: center">
+                        <p:commandButton update=":driverDetailForm:driverDetail" oncomplete="PF('driverDialog').show()"
+                                         icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{driver}" target="#{showDriver.selectedDriver}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+                <p:dialog header="Driver Info" widgetVar="driverDialog" modal="true"
+                          showEffect="fade" hideEffect="fade" resizable="true">
+                    <p:outputPanel id="driverDetail" style="text-align:center;">
+                        <p:panelGrid  columns="2" rendered="#{not empty showDriver.selectedDriver}"
+                                      columnClasses="label,value">
+
+                            <h:outputText value="Id:" />
+                            <h:outputText value="#{showDriver.selectedDriver.id}" />
+
+                            <h:outputText value="FirstName" />
+                            <h:outputText value="#{showDriver.selectedDriver.firstName}" />
+
+                            <h:outputText value="LastName:" />
+                            <h:outputText value="#{showDriver.selectedDriver.lastName}"/>
+
+                            <h:outputText value="Phone Number:" />
+                            <h:outputText value="#{showDriver.selectedDriver.phoneNumber}"/>
+
+                            <h:outputText value="Car Brand:" />
+                            <h:outputText value="#{showDriver.selectedDriver.car.carBrand}"/>
+
+                            <h:outputText value="Car Model:" />
+                            <h:outputText value="#{showDriver.selectedDriver.car.carModel}"/>
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
             </h:form>
 
 
