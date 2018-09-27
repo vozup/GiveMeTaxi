@@ -170,19 +170,20 @@
                     <p:outputLabel value="ДистанцияT"/>
                     <p:inputText value="#{takeOrder.distanceText}" widgetVar="distanceText" id="distanceText"/>
 
+                    <p:outputLabel value="Price"/>
+                    <p:inputText value="#{takeOrder.price}" id="price"/>
+
                     <p:button value="Проложить маршрут" onclick="calcRoute(); return false;"
-                              update=":centerForm:distanceValue,:centerForm:distanceText"/>
+                                     update=":centerForm:distanceValue,:centerForm:distanceText,:centerForm:price"/>
 
                     <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}" widgetVar="sendResults"
                                      update=":orderQueryForm,:centerForm:distanceValue,:centerForm:distanceText"/>
+
+                    <p:commandButton widgetVar="sendResults" style="display: none;"
+                                     actionListener="#{mapTest.showDistance}"/>
                 </p:panelGrid>
             </h:form>
-            <h:form id="formResult">
-                <p:inputText type="hidden" widgetVar="distanceText" value="#{mapTest.distanceText}"/>
-                <p:inputText type="hidden" widgetVar="distanceValue" value="#{mapTest.distanceValue}"/>
-                <p:commandButton widgetVar="sendResults" style="display: none;"
-                                 actionListener="#{mapTest.showDistance}"/>
-            </h:form>
+
 
             <div id="map" style="width: 100%; height: 120px"/>
 
