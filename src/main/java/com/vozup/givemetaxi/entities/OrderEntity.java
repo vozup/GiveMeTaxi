@@ -4,7 +4,10 @@ import com.vozup.givemetaxi.CarType;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 @Entity
@@ -24,7 +27,14 @@ public class OrderEntity {
     private CarType carType;
     private String additionalService;
     private String messageForDriver;
+    private String clientPhoneNumber;
     private boolean isReceived;
+
+    public String dateInHumanRead(){
+        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yy");
+        return dateFormat.format(date);
+    }
+
 
     public Long getId() {
 
@@ -97,5 +107,13 @@ public class OrderEntity {
 
     public void setReceived(boolean received) {
         isReceived = received;
+    }
+
+    public String getClientPhoneNumber() {
+        return clientPhoneNumber;
+    }
+
+    public void setClientPhoneNumber(String clientPhoneNumber) {
+        this.clientPhoneNumber = clientPhoneNumber;
     }
 }

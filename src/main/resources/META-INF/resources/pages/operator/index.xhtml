@@ -13,24 +13,73 @@
     <h:outputStylesheet name="primefaces/components.css"/>
     <h:outputStylesheet name="style/style.css"/>
     <h:outputScript name="style/js/ru.js"/>
+
+    <script type="text/javascript">
+        function initMap() {
+            var mapOptions = {
+                zoom: 10,
+                center: {lat: 50.4294963, lng: 30.53469569999993}
+            };
+            googleMap = new google.maps.Map(document.getElementById('map'), mapOptions);
+            googleMapRouteRenderer = new google.maps.DirectionsRenderer();
+            googleMapRouteRenderer.setMap(googleMap);
+        }
+
+        function calcRoute() {
+
+            var request = {
+                origin: PF('fromAddress').jq.val(),
+                destination: PF('toAddress').jq.val(),
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            new google.maps.DirectionsService().route(request, function (response, status) {
+                if (status == google.maps.DirectionsStatus.OK) {
+                    googleMapRouteRenderer.setDirections(response);
+
+                    var distance = response.routes[0].legs[0].distance;
+                    sendDistanceToServer(distance.text, distance.value);
+                } else {
+                    alert("Не удается найти маршрут " + start.toUrlValue(6) + " к "
+                        + end.toUrlValue(6) + " status: " + status);
+                }
+            });
+        }
+
+        function sendDistanceToServer(distanceText, distanceValue) {
+            PF('distanceText').jq.val(distanceText);
+            PF('distanceValue').jq.val(distanceValue);
+            PF('sendResults').jq.click();
+        }
+    </script>
+
+    <script defer="defer" type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpraOK2IzV4OR_h5Gi8YbCnUL4OFDaeSs&amp;callback=initMap">
+    </script>
 </h:head>
 <h:body>
+    <p:growl/>
 
     <p:layout fullPage="true" style="border: 0" >
+        <!--TOP-->
         <p:layoutUnit id="top" position="north" size="50">
+            <h:form>
                 <p:outputLabel value="Оператор: #{checkOperator.name} #{checkOperator.lastName}"/>
                 <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="float: right"/>
+            </h:form>
         </p:layoutUnit>
-
+        <!--CENTER-->
         <p:layoutUnit id="center" position="center">
-            <h:form>
+            <h:form id="centerForm">
                 <p:panelGrid columns="2" id="orderForm" style="margin:0 auto;font-size: 14px" >
+                    <p:outputLabel value="Телефон"/>
+                    <p:inputText value="#{takeOrder.clientPhoneNumber}" size="50" disabled="true"/>
 
                     <p:outputLabel value="Откуда"/>
-                    <p:inputText value="#{takeOrder.fromAddress}" size="50"/>
+                    <p:inputText value="#{takeOrder.fromAddress}" widgetVar="fromAddress" size="50"/>
 
                     <p:outputLabel value="Куда"/>
-                    <p:inputText value="#{takeOrder.toAddress}" size="50"/>
+                    <p:inputText value="#{takeOrder.toAddress}" widgetVar="toAddress" size="50"/>
 
                     <p:outputLabel for="datetime" value="Datetime:" />
                     <p:calendar id="datetime" value="#{takeOrder.onDate}" pattern="MM/dd/yyyy HH:mm"
@@ -55,21 +104,81 @@
                     <p:outputLabel for="messageForDriver" value="Дополнительная информация для водителя"/>
                     <p:inputTextarea id="messageForDriver" value="#{takeOrder.otherInfoToDriver}"/>
 
-                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}"/>
+                    <p:outputLabel value="ДистанцияV"/>
+                    <p:inputText value="#{takeOrder.distanceValue}" widgetVar="distanceValue" id="distanceValue"/>
+
+                    <p:outputLabel value="ДистанцияT"/>
+                    <p:inputText value="#{takeOrder.distanceText}" widgetVar="distanceText" id="distanceText"/>
+
+                    <p:button value="проложить маршрут" onclick="calcRoute(); return false;"
+                              update=":centerForm:distanceValue,:centerForm:distanceText"/>
+
+                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}" widgetVar="sendResults"
+                                     update=":orderQueryForm,distanceValue,distanceText"/>
                 </p:panelGrid>
             </h:form>
 
         </p:layoutUnit>
-
+        <!--BOTTOM-->
         <p:layoutUnit id="bottom" position="south" size="100">
+            <h:form id="orderQueryForm">
+                <p:growl id="msgs" showDetail="true" />
 
+                <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{query.id}" />
+                    </p:column>
+                    <p:column headerText="Номер заказчика">
+                        <h:outputText value="#{query.clientPhoneNumber}" />
+                    </p:column>
+                    <p:column headerText="Сервис">
+                        <h:outputText value="#{query.carType}" />
+                    </p:column>
+                    <p:column headerText="Откуда" colspan="2">
+                        <h:outputText value="#{query.fromAddress}" />
+                    </p:column>
+                    <p:column headerText="Куда" colspan="2">
+                        <h:outputText value="#{query.toAddress}" />
+                    </p:column>
+                    <p:column headerText="Дата">
+                        <h:outputText value="#{query.date}" />
+                    </p:column>
+                    <p:column headerText="Время">
+                        <h:outputText value="#{query.time.hours}:#{query.time.minutes}" />
+                    </p:column>
+                    <p:column headerText="Принят?">
+                        <h:outputText value="#{query.received}" />
+                    </p:column>
+                    <p:column style="width:32px;text-align: center">
+                        <p:commandButton update=":orderQueryForm:orderQuery" oncomplete="PF('orderDialog').show()"
+                                         icon="ui-icon-search" title="View">
+                            <f:setPropertyActionListener value="#{query}" target="#{orderQuery.selectedOrder}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
         </p:layoutUnit>
-
-        <p:layoutUnit id="left" position="west" size="300" resizable="false" closable="false" collapsible="true"
+        <!--LEFT-->
+        <p:layoutUnit id="left" position="west" size="250" resizable="false" closable="false" collapsible="true"
+                      style="margin: left"
                       header="Очередь заказов и сообщений" minSize="300">
-            <p:accordionPanel>
+
+            <p:accordionPanel id="calls">
                 <p:tab title="Очередь звонков">
-                    <h:outputText value="Menu 2 Content" />
+                    <h:form>
+                        <p:repeat var="call" value="#{callList.calls}"
+                                  mode="inline" scrollHeight="260" styleClass="leftContainer">
+
+                            <h:panelGrid columns="1">
+                                <p:outputPanel>
+                                    <p:commandButton update="calls,centerForm:orderForm" value="#{call.phoneNumber}" action="#{callList.answer}">
+                                        <f:setPropertyActionListener value="#{call}" target="#{callList.selectedCall}" />
+                                    </p:commandButton>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                        </p:repeat>
+                    </h:form>
                 </p:tab>
 
                 <p:tab title="Очередь сообщений">
@@ -78,23 +187,21 @@
 
             </p:accordionPanel>
         </p:layoutUnit>
+        <!--RIGHT-->
+        <p:layoutUnit id="right" position="east" size="300" header="Доступные машины" resizable="false" closable="false"
+                      style="margin-left: 0"
+                      collapsible="true" >
 
-        <p:layoutUnit id="right" position="east" size="200" header="Доступные машины" resizable="false" closable="false"
-                      collapsible="true" style="text-align:center" >
+            <h:form>
+                <p:dataList value="#{showDriver.drivers}" var="driver" type="ordered">
+                    #{driver.firstName}, #{driver.car.carType},  #{driver.car.carNumber}
+                </p:dataList>
+            </h:form>
 
-
-            <p:commandButton value="Show Dialog" onclick="PF('dlg').show();" type="button" style="margin-top:10px"/>
 
         </p:layoutUnit>
 
     </p:layout>
-
-    <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
-        <h:outputText value="Resistance to PrimeFaces is futile!" />
-    </p:dialog>
-
-
-
 
 
 </h:body>

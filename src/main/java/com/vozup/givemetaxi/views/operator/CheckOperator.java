@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi.views;
+package com.vozup.givemetaxi.views.operator;
 
 import com.vozup.givemetaxi.entities.OperatorEntity;
 import com.vozup.givemetaxi.repository.OperatorRepository;

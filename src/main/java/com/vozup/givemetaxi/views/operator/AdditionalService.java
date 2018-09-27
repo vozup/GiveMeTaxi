@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi.views;
+package com.vozup.givemetaxi.views.operator;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;

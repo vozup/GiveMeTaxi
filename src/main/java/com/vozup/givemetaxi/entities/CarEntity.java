@@ -13,8 +13,10 @@ public class CarEntity {
     //Типа сервис(Стандарт, Комфорт, Бизнес, Универсал, Микроавтобус)
     @Enumerated(EnumType.STRING)
     private CarType carType;
-    //Марка машины
+    //Модель машины
     private String carModel;
+    //Марка машины
+    private String carBrand;
     //Номер машины
     private String carNumber;
     //Техпаспорт
@@ -33,6 +35,14 @@ public class CarEntity {
         this.carNumber = carNumber;
         this.technicalCoupon = technicalCoupon;
         this.numberOfCoverage = numberOfCoverage;
+    }
+
+    public String getCarBrand() {
+        return carBrand;
+    }
+
+    public void setCarBrand(String carBrand) {
+        this.carBrand = carBrand;
     }
 
     public Long getId() {

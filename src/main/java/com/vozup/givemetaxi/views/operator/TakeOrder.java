@@ -1,6 +1,8 @@
-package com.vozup.givemetaxi.views;
+package com.vozup.givemetaxi.views.operator;
 
+import com.vozup.givemetaxi.CallList;
 import com.vozup.givemetaxi.CarType;
+import com.vozup.givemetaxi.OrderQuery;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,10 +26,15 @@ public class TakeOrder {
     private String carType;
     private List<String> additionalService;
     private String otherInfoToDriver;
+    private String clientPhoneNumber;
+    private String distanceValue;
+    private String distanceText;
     @Inject
     AdditionalService service;
     @Inject
     OrderRepository orderRepository;
+    @Inject
+    OrderQuery orderQuery;
 
     public void actionTakeOrder(){
         additionalService = service.getSelectedAdditionalService();
@@ -41,13 +48,14 @@ public class TakeOrder {
         //-----
         orderEntity.setDate(onDate);
         orderEntity.setTime(Time.valueOf(timeFormat.format(onDate)));
+        orderEntity.setClientPhoneNumber(clientPhoneNumber);
 
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
         orderEntity.setCarType(CarType.valueOf(carType));
 
         try {
-            orderRepository.save(orderEntity);
+            //orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
                 e.printStackTrace();
                 LOGGER.info(fromAddress + " " +
@@ -59,6 +67,32 @@ public class TakeOrder {
                         otherInfoToDriver);
         }
 
+        orderQuery.addOrder(orderEntity);
+
+    }
+
+    public String getDistanceValue() {
+        return distanceValue;
+    }
+
+    public void setDistanceValue(String distanceValue) {
+        this.distanceValue = distanceValue;
+    }
+
+    public String getDistanceText() {
+        return distanceText;
+    }
+
+    public void setDistanceText(String distanceText) {
+        this.distanceText = distanceText;
+    }
+
+    public String getClientPhoneNumber() {
+        return clientPhoneNumber;
+    }
+
+    public void setClientPhoneNumber(String clientPhoneNumber) {
+        this.clientPhoneNumber = clientPhoneNumber;
     }
 
     public String getCarType() {
@@ -91,16 +125,6 @@ public class TakeOrder {
 
     public void setOnDate(Date onDate) {
         this.onDate = onDate;
-    }
-
-
-
-    public List<String> getAdditionalService() {
-        return additionalService;
-    }
-
-    public void setAdditionalService(List<String> additionalService) {
-        this.additionalService = additionalService;
     }
 
     public String getOtherInfoToDriver() {

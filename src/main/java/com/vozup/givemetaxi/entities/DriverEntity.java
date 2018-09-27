@@ -10,10 +10,12 @@ public class DriverEntity {
     private Long id;
     private String firstName;
     private String lastName;
+    private String carAddress;
     @OneToOne
     private CarEntity car;
     private String phoneNumber;
     private boolean isSmoking;
+    private boolean isBusy;
 
     public DriverEntity(String firstName, String lastName, CarEntity car, String phoneNumber, boolean isSmoking) {
         this.firstName = firstName;
@@ -32,6 +34,14 @@ public class DriverEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isBusy() {
+        return isBusy;
+    }
+
+    public void setBusy(boolean busy) {
+        isBusy = busy;
     }
 
     public String getFirstName() {
@@ -72,5 +82,13 @@ public class DriverEntity {
 
     public void setSmoking(boolean smoking) {
         isSmoking = smoking;
+    }
+
+    public String getCarAddress() {
+        return carAddress;
+    }
+
+    public void setCarAddress(String carAddress) {
+        this.carAddress = carAddress;
     }
 }

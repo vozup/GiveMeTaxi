@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi.views;
+package com.vozup.givemetaxi.views.admin;
 
 import com.vozup.givemetaxi.entities.OperatorEntity;
 import com.vozup.givemetaxi.entities.SiteManagersEntity;
@@ -27,5 +27,37 @@ public class CheckSiteManager {
             }
         }
         return "goToInvalidPasswordPage";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
