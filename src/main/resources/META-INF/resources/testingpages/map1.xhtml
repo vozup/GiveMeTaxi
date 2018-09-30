@@ -25,6 +25,11 @@
             inputFrom = document.getElementById('myForm:input-from');
             inputTo = document.getElementById('myForm:input-to');
 
+            var options = {
+                types: [('cities')],
+                componentRestrictions: {country: 'ua'}
+            };
+
             var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
             var autocompleteTo = new google.maps.places.Autocomplete(inputTo);
 
@@ -115,7 +120,7 @@
 
 
     <script defer="defer" type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc_5gdMuZ-s2lxVqV24x6t3TeXt5P1VpI&amp;libraries=places&amp;callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc_5gdMuZ-s2lxVqV24x6t3TeXt5P1VpI&amp;libraries=places&amp;language=ua&amp;region=UA&amp;callback=initMap">
     </script>
 
 </h:head>

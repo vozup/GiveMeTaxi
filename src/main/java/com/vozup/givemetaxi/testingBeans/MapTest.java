@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi;
+package com.vozup.givemetaxi.testingBeans;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
