@@ -58,7 +58,7 @@ public class TakeOrder {
         orderEntity.setCarType(CarType.valueOf(carType));
 
         try {
-            //orderRepository.save(orderEntity);
+            orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
                 e.printStackTrace();
                 LOGGER.info(fromAddress + " " +
