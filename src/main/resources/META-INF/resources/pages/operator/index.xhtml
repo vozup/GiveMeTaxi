@@ -108,6 +108,7 @@
             PF('distanceValue').jq.val(distanceValue);
             PF('sendResults').jq.click();
         }
+
     </script>
 
 
@@ -116,7 +117,9 @@
     </script>
 </h:head>
 <h:body>
-    <p:growl showDetail="false"/>
+    <p:growl showDetail="false">
+        <p:autoUpdate/>
+    </p:growl>
 
     <p:layout fullPage="true" style="border: 0" >
         <!--TOP-->
@@ -147,7 +150,7 @@
                     <p:outputLabel for="car" value="Авто:"/>
                     <p:selectOneRadio id="car" value="#{takeOrder.carType}" required="true" style="text-align:left"
                                       validatorMessage="Обязательное поле">
-                        <f:selectItem itemLabel="Стандарт" itemValue="STANDART" />
+                        <f:selectItem itemLabel="Стандарт" itemValue="STANDART"/>
                         <f:selectItem itemLabel="Комфорт" itemValue="COMFORT" />
                         <f:selectItem itemLabel="Бизнес" itemValue="BUISNESS" />
                         <f:selectItem itemLabel="Универсал" itemValue="UNIVERSAL" />
@@ -165,27 +168,29 @@
                     <p:inputTextarea id="messageForDriver" value="#{takeOrder.otherInfoToDriver}"/>
 
                     <p:outputLabel value="ДистанцияV"/>
-                    <p:inputText value="#{takeOrder.distanceValue}" widgetVar="distanceValue" id="distanceValue"/>
+                    <p:inputText value="#{takeOrder.distanceValue}" id="distanceValue"/>
 
                     <p:outputLabel value="ДистанцияT"/>
-                    <p:inputText value="#{takeOrder.distanceText}" widgetVar="distanceText" id="distanceText"/>
+                    <p:inputText value="#{takeOrder.distanceText}" id="distanceText"/>
 
                     <p:outputLabel value="Price"/>
                     <p:inputText value="#{takeOrder.price}" id="price"/>
 
-                    <p:button value="Проложить маршрут" onclick="calcRoute(); return false;"
-                                     update=":centerForm:distanceValue,:centerForm:distanceText,:centerForm:price"/>
+                    <p:button value="Проложить маршрут" onclick="calcRoute(); return false;"/>
 
-                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}" widgetVar="sendResults"
-                                     update=":orderQueryForm,:centerForm:distanceValue,:centerForm:distanceText"/>
-
-                    <p:commandButton widgetVar="sendResults" style="display: none;"
-                                     actionListener="#{mapTest.showDistance}"/>
+                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}"
+                                     update="orderQueryForm"/>
                 </p:panelGrid>
+            </h:form>
+            <h:form id="formResult">
+                <p:inputText type="hidden" widgetVar="distanceText" value="#{takeOrder.distanceText}"/>
+                <p:inputText type="hidden" widgetVar="distanceValue" value="#{takeOrder.distanceValue}"/>
+                <p:commandButton widgetVar="sendResults" style="display: none;"
+                                 update="centerForm:distanceValue,centerForm:distanceText,centerForm:price"/>
             </h:form>
 
 
-            <div id="map" style="width: 100%; height: 120px"/>
+            <div id="map" style="width: 100%; height: 110px"/>
 
         </p:layoutUnit>
         <!--BOTTOM-->

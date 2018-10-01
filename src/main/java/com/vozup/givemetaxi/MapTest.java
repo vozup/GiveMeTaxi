@@ -11,33 +11,33 @@ import java.util.Map;
 public class MapTest {
     private String distanceText;
     private String distanceValue;
-    private Integer priceForOrder;
 
     private Map<CarType, Integer> priceForKm;
 
     private String from;
     private String to;
 
-//    @PostConstruct
-//    private void init(){
-//        priceForKm = new HashMap<>();
-//        priceForKm.put(CarType.STANDART, 10);
-//        priceForKm.put(CarType.BUISNESS, 20);
-//        priceForKm.put(CarType.COMFORT, 25);
-//        priceForKm.put(CarType.MICROBUS, 25);
-//    }
-
-    public Integer calculatePrice(String carType){
-        Integer price = priceForKm.get(CarType.valueOf(carType));
-        return Integer.getInteger(distanceValue) * price;
+    @PostConstruct
+    private void init(){
+        priceForKm = new HashMap<>();
+        priceForKm.put(CarType.STANDART, 10);
+        priceForKm.put(CarType.BUISNESS, 20);
+        priceForKm.put(CarType.COMFORT, 25);
+        priceForKm.put(CarType.MICROBUS, 25);
     }
 
-    public Integer getPriceForOrder() {
-        return priceForOrder;
+    public Integer priceForKm(String carType){
+        if (carType != null){
+            return priceForKm.get(CarType.valueOf(carType));
+        }
+        else return 0;
     }
 
-    public void setPriceForOrder(Integer priceForOrder) {
-        this.priceForOrder = priceForOrder;
+    public Integer priceForKm(CarType carType){
+        if (carType != null){
+            return priceForKm.get(carType);
+        }
+        else return 0;
     }
 
     public String getFrom() {
