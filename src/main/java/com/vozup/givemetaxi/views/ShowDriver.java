@@ -3,6 +3,7 @@ package com.vozup.givemetaxi.views;
 import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -34,6 +35,7 @@ public class ShowDriver {
     }
 
     public void setSelectedDriver(DriverEntity selectedDriver) {
+        System.out.println(selectedDriver.getFirstName());
         this.selectedDriver = selectedDriver;
     }
 }
