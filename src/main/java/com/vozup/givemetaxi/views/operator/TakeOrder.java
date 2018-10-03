@@ -7,6 +7,7 @@ import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Time;
@@ -38,6 +39,11 @@ public class TakeOrder {
     OrderQuery orderQuery;
     @Inject
     MapTest mapTest;
+
+    @PostConstruct
+    private void init(){
+        price = 0;
+    }
 
     public void actionTakeOrder(){
         additionalService = service.getSelectedAdditionalService();
@@ -75,7 +81,7 @@ public class TakeOrder {
     }
 
     public void calculatePrice(){
-        //LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
+        LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
         price = Integer.parseInt(distanceValue.trim()) / 1000 * mapTest.priceForKm(carType);
     }
 
