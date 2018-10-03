@@ -4,8 +4,11 @@ import com.vozup.givemetaxi.entities.OperatorEntity;
 import com.vozup.givemetaxi.entities.SiteManagersEntity;
 import com.vozup.givemetaxi.repository.SiteManagersRepository;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.logging.Logger;
 
 @Named
 public class CheckSiteManager {
@@ -20,13 +23,25 @@ public class CheckSiteManager {
     public String checkPassword() {
         if (login != null && password != null) {
             SiteManagersEntity siteManagersEntity = repository.findByLogin(this.login);
-
-            if (siteManagersEntity.getLogin().equals(login) && siteManagersEntity.getPassword().equals(password)){
-                System.out.println();
-                return "goToSiteManagerHomePage";
+            if (siteManagersEntity != null){
+                if (siteManagersEntity.getLogin().equals(login) && siteManagersEntity.getPassword().equals(password)){
+                    return "goToSiteManagerHomePage";
+                }
             }
         }
-        return "goToInvalidPasswordPage";
+        showMessage("Login or password are incorect!");
+        resetLoginAndPasswordFields();
+        return null;
+    }
+
+    private void showMessage(String message){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(message));
+    }
+
+    private void resetLoginAndPasswordFields(){
+        this.login = "";
+        this.password = "";
     }
 
     public String getName() {

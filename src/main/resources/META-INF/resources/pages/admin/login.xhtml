@@ -13,17 +13,20 @@
     <h:outputStylesheet name="primefaces/components.css"/>
 </h:head>
 <h:body>
+    <p:growl showDetail="false">
+        <p:autoUpdate/>
+    </p:growl>
     <div class="ui-g">
         <div class="ui-g-3" style="margin: 0 auto">
-            <h:form>
+            <h:form id="siteManagersLoginForm">
                 <p:panelGrid columns="2">
                     <p:outputLabel value="Login"/>
-                    <p:inputText value="#{checkSiteManager.login}"/>
+                    <p:inputText value="#{checkSiteManager.login}" required="true" requiredMessage="Введите логин"/>
 
                     <p:outputLabel value="Password"/>
-                    <p:inputText value="#{checkSiteManager.password}"/>
+                    <p:inputText value="#{checkSiteManager.password}" required="true" requiredMessage="Введите пароль"/>
 
-                    <p:commandButton action="#{checkSiteManager.checkPassword}" value="Login"/>
+                    <p:commandButton action="#{checkSiteManager.checkPassword}" value="Login" update="siteManagersLoginForm"/>
                 </p:panelGrid>
             </h:form>
         </div>

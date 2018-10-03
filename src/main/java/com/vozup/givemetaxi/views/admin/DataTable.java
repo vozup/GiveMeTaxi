@@ -1,5 +1,6 @@
 package com.vozup.givemetaxi.views.admin;
 
+import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import com.vozup.givemetaxi.repository.SiteManagersRepository;
@@ -15,6 +16,8 @@ public class DataTable {
     OrderRepository orderRepository;
     @Inject
     SiteManagersRepository siteManagersRepository;
+    @Inject
+    DriverRepository driverRepository;
     //
     public void takeOrderTable(){
 

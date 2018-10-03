@@ -134,27 +134,34 @@
             <h:form id="centerForm">
                 <p:panelGrid columns="2" id="orderForm" style="width: 100%" columnClasses="column-center-form">
                     <p:outputLabel value="Телефон"/>
-                    <p:inputText id="clientPhonenumber" value="#{takeOrder.clientPhoneNumber}" size="50" disabled="true"/>
+                    <p:inputText id="clientPhonenumber" value="#{takeOrder.clientPhoneNumber}"
+                                 size="50"
+                                 required="true" requiredMessage="Телефон">
+                            <f:validateRegex pattern="((?=.*[0-9])(?=.*[+]).{13})"/>
+                    </p:inputText>
 
                     <p:outputLabel value="Откуда"/>
-                    <p:inputText id="input-from" value="#{takeOrder.fromAddress}" widgetVar="fromAddress" size="50"/>
+                    <p:inputText id="input-from" value="#{takeOrder.fromAddress}" widgetVar="fromAddress"
+                                 size="50" required="true" requiredMessage="Поле Откуда обязательное"/>
 
                     <p:outputLabel value="Куда"/>
-                    <p:inputText id="input-to" value="#{takeOrder.toAddress}" widgetVar="toAddress" size="50"/>
+                    <p:inputText id="input-to" value="#{takeOrder.toAddress}" widgetVar="toAddress"
+                                 size="50" required="true" requiredMessage="Поле Куда обязательное"/>
 
                     <p:outputLabel for="datetime" value="Datetime:" />
                     <p:calendar id="datetime" value="#{takeOrder.onDate}" pattern="MM/dd/yyyy HH:mm"
                                 showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru" required="true"
-                                validatorMessage="Обязательное поле"/>
+                                requiredMessage="Поле Дата обязательное"/>
 
                     <p:outputLabel for="car" value="Авто:"/>
+                    <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
                     <p:selectOneRadio id="car" value="#{takeOrder.carType}" required="true" style="text-align:left"
-                                      validatorMessage="Обязательное поле">
-                        <f:selectItem itemLabel="Стандарт" itemValue="STANDART"/>
-                        <f:selectItem itemLabel="Комфорт" itemValue="COMFORT" />
-                        <f:selectItem itemLabel="Бизнес" itemValue="BUISNESS" />
-                        <f:selectItem itemLabel="Универсал" itemValue="UNIVERSAL" />
-                        <f:selectItem itemLabel="Микроавтобус" itemValue="MICROBUS" />
+                                      requiredMessage="Обязательное поле">
+                        <f:selectItem itemLabel="Стандарт" itemValue="#{CarType.STANDART}"/>
+                        <f:selectItem itemLabel="Комфорт" itemValue="#{CarType.COMFORT}" />
+                        <f:selectItem itemLabel="Бизнес" itemValue="#{CarType.BUISNESS}" />
+                        <f:selectItem itemLabel="Универсал" itemValue="#{CarType.UNIVERSAL}" />
+                        <f:selectItem itemLabel="Микроавтобус" itemValue="#{CarType.MICROBUS}" />
                     </p:selectOneRadio>
 
                     <p:outputLabel for="additionalService" value="Дополнительные услуги:"/>
@@ -194,7 +201,7 @@
 
         </p:layoutUnit>
         <!--BOTTOM-->
-        <p:layoutUnit id="bottom" position="south" size="100">
+        <p:layoutUnit id="bottom" position="south" size="100" resizable="true">
             <h:form id="orderQueryForm">
                 <p:growl id="msgs" showDetail="false" />
 

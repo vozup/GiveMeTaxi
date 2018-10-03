@@ -23,7 +23,7 @@ public class TakeOrder {
     private String fromAddress;
     private String toAddress;
     private Date onDate;
-    private String carType = CarType.STANDART.toString();
+    private CarType carType = CarType.STANDART;
     private List<String> additionalService;
     private String otherInfoToDriver;
     private String clientPhoneNumber;
@@ -55,7 +55,7 @@ public class TakeOrder {
 
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
-        orderEntity.setCarType(CarType.valueOf(carType));
+        orderEntity.setCarType(carType);
 
         try {
             orderRepository.save(orderEntity);
@@ -114,11 +114,11 @@ public class TakeOrder {
         this.clientPhoneNumber = clientPhoneNumber;
     }
 
-    public String getCarType() {
+    public CarType getCarType() {
         return carType;
     }
 
-    public void setCarType(String carType) {
+    public void setCarType(CarType carType) {
         this.carType = carType;
     }
 
