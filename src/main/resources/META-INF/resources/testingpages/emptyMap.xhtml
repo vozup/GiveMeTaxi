@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+    <title>
+        Testing map
+    </title>
+    <script defer="defer" type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBc_5gdMuZ-s2lxVqV24x6t3TeXt5P1VpI&amp;libraries=places&amp;language=ua&amp;region=UA&amp;callback=initMap">
+    </script>
+
+    <script type="text/javascript">
+        var googleMapRouteRenderer;
+        var googleMap;
+        var geocoder;
+
+
+        function initMap() {
+            googleMap = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: 50.431782, lng: 30.516382},
+                zoom: 11
+            });
+            //Define direction API
+            googleMapRouteRenderer = new google.maps.DirectionsRenderer();
+            googleMapRouteRenderer.setMap(googleMap);
+            //asdasd
+            //Custom Markers
+            geocoder = new google.maps.Geocoder();
+            getGeocodeAndShowMarker();
+        }
+
+        function getGeocodeAndShowMarker() {
+            var address = PF('car').jq.val();
+
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status == 'OK') {
+                    var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/info-i_maps.png';
+                    // Create markers.
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        icon: iconBase.icon,
+                        map: googleMap
+                    });
+                    marker.setVisible(true);
+
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function calcRoute() {
+            var request = {
+                //From widgetVar
+                origin: PF('addressFrom').jq.val(),
+                destination: PF('addressTo').jq.val(),
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            new google.maps.DirectionsService().route(request, function (response, status) {
+                var circleCenter;
+
+                if (status === google.maps.DirectionsStatus.OK) {
+                    googleMapRouteRenderer.setDirections(response);
+                    var distance = response.routes[0].legs[0].distance;
+                    sendDistanceToServer(distance.text, distance.value);
+                    // Add the circle to the map
+                    geocoder.geocode({'address': request.origin}, function (results, status) {
+                        if (status === 'OK') {
+                            circleCenter = results[0].geometry.location;
+                            //alert('Geocode: ' + circleCenter);
+
+                        } else {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
+
+
+                    });
+                } else {
+                    // alert("Не удается найти маршрут " + start.toUrlValue(6) + " к "
+                    //     + end.toUrlValue(6) + " status: " + status);
+                }
+
+                var cityCircle = new google.maps.Circle({
+                    strokeColor: '#4fa1ff',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#4fa1ff',
+                    fillOpacity: 0.35,
+                    map: googleMap,
+                    center: circleCenter,
+                    radius: 1000
+                });
+
+                alert('Geocode ' + circleCenter)
+            });
+        }
+
+        function sendDistanceToServer(distanceText, distanceValue) {
+            PF('distanceText').jq.val(distanceText);
+            PF('distanceValue').jq.val(distanceValue);
+            PF('sendResults').jq.click();
+        }
+    </script>
+
+
+</h:head>
+<h:body>
+    <p:growl>
+        <p:autoUpdate/>
+    </p:growl>
+
+    <h:form id="form">
+        <p:panelGrid columns="2" style="float: left">
+            <p:outputLabel value="From"/>
+            <p:inputText widgetVar="addressFrom" value="Київ, вулиця Хрещатик, 11"/>
+
+            <p:outputLabel value="To"/>
+            <p:inputText widgetVar="addressTo" value="Дарниця"/>
+
+            <p:outputLabel value="Distance text"/>
+            <p:inputText value="#{testBean.distanceText}" id="dstText"/>
+
+            <p:outputLabel value="Distance value"/>
+            <p:inputText value="#{testBean.distanceValue}" id="dstVal"/>
+
+            <p:outputLabel value="Price"/>
+            <p:inputText value="#{testBean.price}" id="price"/>
+
+            <p:commandButton value="Calc route" onclick="calcRoute(); return false;"/>
+            <p:spacer/>
+        </p:panelGrid>
+    </h:form>
+
+    <h:form id="formResult">
+        <p:inputText type="hidden" widgetVar="distanceText" value="#{testBean.distanceText}"/>
+        <p:inputText type="hidden" widgetVar="distanceValue" value="#{testBean.distanceValue}"/>
+        <p:commandButton widgetVar="sendResults" style="display: none;"
+                         actionListener="#{testBean.showDistanceAndCalculatePrice}" update="form:dstText,form:dstVal"/>
+    </h:form>
+
+    <h:form id="carsForm">
+        <p:dataTable value="#{carList.cars}" var="cars">
+            <p:column headerText="Address">
+                <p:inputText widgetVar="car" value="#{cars.address}" id="cars"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+    <p:outputLabel value="To"/>
+
+    <div id="map" style="width: 400px; height: 400px;"/>
+</h:body>
+
+
+</html>
