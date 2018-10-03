@@ -11,6 +11,36 @@
 <h:head>
 </h:head>
 <h:body>
+    <h:form id="orderQueryForm">
+        <p:growl id="msgs" showDetail="false" />
 
+        <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50"
+                     rowStyleClass="bottom-row">
+            <p:column headerText="Id">
+                <h:outputText value="#{query.id}" />
+            </p:column>
+            <p:column headerText="Номер заказчика">
+                <h:outputText value="#{query.clientPhoneNumber}" />
+            </p:column>
+            <p:column headerText="Сервис">
+                <h:outputText value="#{query.carType}" />
+            </p:column>
+            <p:column headerText="Откуда" colspan="2">
+                <h:outputText value="#{query.fromAddress}" />
+            </p:column>
+            <p:column headerText="Куда" colspan="2">
+                <h:outputText value="#{query.toAddress}" />
+            </p:column>
+            <p:column headerText="Дата">
+                <h:outputText value="#{query.date}" />
+            </p:column>
+            <p:column headerText="Время">
+                <h:outputText value="#{query.time.hours}:#{query.time.minutes}" />
+            </p:column>
+            <p:column headerText="Принят?">
+                <h:outputText value="#{query.received}" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
 </h:body>
 </html>

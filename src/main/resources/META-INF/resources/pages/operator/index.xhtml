@@ -55,8 +55,8 @@
                                 showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru" required="true"
                                 requiredMessage="Поле Дата обязательное"/>
 
-                    <p:outputLabel for="car" value="Авто:"/>
                     <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
+                    <p:outputLabel for="car" value="Авто:"/>
                     <p:selectOneRadio id="car" value="#{takeOrder.carType}"
                                       widgetVar="rbCarType"
                                       required="true" style="text-align:left"
@@ -102,37 +102,7 @@
         </p:layoutUnit>
         <!--BOTTOM-->
         <p:layoutUnit id="bottom" position="south" size="100" resizable="true">
-            <h:form id="orderQueryForm">
-                <p:growl id="msgs" showDetail="false" />
 
-                <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50"
-                             rowStyleClass="bottom-row">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{query.id}" />
-                    </p:column>
-                    <p:column headerText="Номер заказчика">
-                        <h:outputText value="#{query.clientPhoneNumber}" />
-                    </p:column>
-                    <p:column headerText="Сервис">
-                        <h:outputText value="#{query.carType}" />
-                    </p:column>
-                    <p:column headerText="Откуда" colspan="2">
-                        <h:outputText value="#{query.fromAddress}" />
-                    </p:column>
-                    <p:column headerText="Куда" colspan="2">
-                        <h:outputText value="#{query.toAddress}" />
-                    </p:column>
-                    <p:column headerText="Дата">
-                        <h:outputText value="#{query.date}" />
-                    </p:column>
-                    <p:column headerText="Время">
-                        <h:outputText value="#{query.time.hours}:#{query.time.minutes}" />
-                    </p:column>
-                    <p:column headerText="Принят?">
-                        <h:outputText value="#{query.received}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
         </p:layoutUnit>
         <!--LEFT-->
         <p:layoutUnit id="left" position="west" size="300" resizable="false" closable="false" collapsible="true"
