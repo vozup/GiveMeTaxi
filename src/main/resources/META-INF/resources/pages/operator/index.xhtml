@@ -192,7 +192,9 @@
             <h:form id="formResult">
                 <p:inputText type="hidden" widgetVar="distanceText" value="#{takeOrder.distanceText}"/>
                 <p:inputText type="hidden" widgetVar="distanceValue" value="#{takeOrder.distanceValue}"/>
+                <p:inputText type="hidden" widgetVar="carType" value="#{takeOrder.carType}"/>
                 <p:commandButton widgetVar="sendResults" style="display: none;"
+                                 actionListener="#{takeOrder.calculatePrice}"
                                  update="centerForm:distanceValue,centerForm:distanceText,centerForm:price"/>
             </h:form>
 
@@ -279,45 +281,43 @@
                         <h:outputText value="#{driver.car.carNumber}" />
                     </p:column>
                     <p:column style="width:16px;text-align: center">
-                        <p:commandButton update=":driverDetailForm:driverDetail" oncomplete="PF('driverDialog').show()"
+                        <p:commandButton oncomplete="PF('driverDialog').show()"
                                          icon="ui-icon-search" title="View">
-                            <f:setPropertyActionListener value="#{driver}" target="#{showDriver.selectedDriver}" />
+                            <f:setPropertyActionListener value="#{showDriver.selectedDriver}" target="#{driver}" />
                         </p:commandButton>
                     </p:column>
                 </p:dataTable>
-
-                <p:dialog header="Driver Info" widgetVar="driverDialog" modal="true"
-                          showEffect="fade" hideEffect="fade" resizable="true">
-                    <p:outputPanel id="driverDetail" style="text-align:center;">
-                        <p:panelGrid  columns="2" rendered="#{not empty showDriver.selectedDriver}"
-                                      columnClasses="label,value">
-
-                            <h:outputText value="Id:" />
-                            <h:outputText value="#{showDriver.selectedDriver.id}" />
-
-                            <h:outputText value="FirstName" />
-                            <h:outputText value="#{showDriver.selectedDriver.firstName}" />
-
-                            <h:outputText value="LastName:" />
-                            <h:outputText value="#{showDriver.selectedDriver.lastName}"/>
-
-                            <h:outputText value="Phone Number:" />
-                            <h:outputText value="#{showDriver.selectedDriver.phoneNumber}"/>
-
-                            <h:outputText value="Car Brand:" />
-                            <h:outputText value="#{showDriver.selectedDriver.car.carBrand}"/>
-
-                            <h:outputText value="Car Model:" />
-                            <h:outputText value="#{showDriver.selectedDriver.car.carModel}"/>
-                        </p:panelGrid>
-                    </p:outputPanel>
-                </p:dialog>
             </h:form>
 
-
         </p:layoutUnit>
-
     </p:layout>
+
+    <p:dialog header="Driver Info" widgetVar="driverDialog" modal="true"
+              showEffect="fade" hideEffect="fade" resizable="true">
+        <p:outputPanel id="driverDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty showDriver.selectedDriver}"
+                          columnClasses="label,value">
+
+                <h:outputText value="Id:" />
+                <h:outputText value="#{showDriver.selectedDriver.id}" />
+
+                <h:outputText value="FirstName" />
+                <h:outputText value="#{showDriver.selectedDriver.firstName}" />
+
+                <h:outputText value="LastName:" />
+                <h:outputText value="#{showDriver.selectedDriver.lastName}"/>
+
+                <h:outputText value="Phone Number:" />
+                <h:outputText value="#{showDriver.selectedDriver.phoneNumber}"/>
+
+                <h:outputText value="Car Brand:" />
+                <h:outputText value="#{showDriver.selectedDriver.car.carBrand}"/>
+
+                <h:outputText value="Car Model:" />
+                <h:outputText value="#{showDriver.selectedDriver.car.carModel}"/>
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
 
 
 </h:body>

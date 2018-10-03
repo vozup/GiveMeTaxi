@@ -26,9 +26,17 @@ public class AddViewSiteManager {
 
     }
 
-    public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", ((SiteManagersEntity) event.getObject()).getId().toString());
+    public void onRowEdit(RowEditEvent event) throws Exception{
+        SiteManagersEntity temp = (SiteManagersEntity)event.getObject();
+        //System.out.println(sm.getLogin());
+        SiteManagersEntity sm = repository.findById(temp.getId()).orElseThrow(() ->new Exception("Empty object"));
+
+
+
+        FacesMessage msg = new FacesMessage("Manager Edited", ((SiteManagersEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
+
+
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -44,7 +52,7 @@ public class AddViewSiteManager {
         managersEntity.setPassword("admin" + a);
 
 
-        siteManager.add(managersEntity);
+        //siteManager.add(managersEntity);
         repository.save(managersEntity);
 
         FacesMessage msg = new FacesMessage("New Manager added", managersEntity.getId().toString());

@@ -14,9 +14,6 @@ public class MapTest {
 
     private Map<CarType, Integer> priceForKm;
 
-    private String from;
-    private String to;
-
     @PostConstruct
     private void init(){
         priceForKm = new HashMap<>();
@@ -38,22 +35,6 @@ public class MapTest {
             return priceForKm.get(carType);
         }
         else return 0;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
     }
 
     public void showDistance() {

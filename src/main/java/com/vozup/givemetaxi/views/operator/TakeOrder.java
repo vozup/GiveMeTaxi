@@ -75,11 +75,8 @@ public class TakeOrder {
     }
 
     public void calculatePrice(){
-        LOGGER.info("distanceValue " + distanceValue + " " + "Car type" + carType);
-//        LOGGER.info("distanceValue from MapTest " +mapTest.getDistanceValue() + " " +
-//                "Car type from MapTest" + + mapTest.priceForKm(carType));
-        price = Integer.getInteger(mapTest.getDistanceValue()) * mapTest.priceForKm(carType);
-        //price = Integer.getInteger(distanceValue) * mapTest.getPriceForKm(carType);
+        //LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
+        price = Integer.parseInt(distanceValue.trim()) / 1000 * mapTest.priceForKm(carType);
     }
 
     public Integer getPrice() {
