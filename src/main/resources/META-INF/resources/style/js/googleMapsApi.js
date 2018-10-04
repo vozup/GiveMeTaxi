@@ -96,7 +96,9 @@ function sendDistanceToServer(distanceText, distanceValue) {
     PF('sendResults').jq.click();
 }
 
-//
+//Получить значение віделеной радиокнопки
+//form id="centerForm"
+//selectOneRadio id="car"
 function getCheckedRbValue() {
     var radioGroupLength = document.forms['centerForm']['centerForm:car'].length;
     var checkedRbValue;
