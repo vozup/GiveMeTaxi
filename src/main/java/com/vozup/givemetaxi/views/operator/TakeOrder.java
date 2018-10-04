@@ -1,8 +1,8 @@
 package com.vozup.givemetaxi.views.operator;
 
 import com.vozup.givemetaxi.CarType;
-import com.vozup.givemetaxi.MapTest;
 import com.vozup.givemetaxi.OrderQuery;
+import com.vozup.givemetaxi.PriceForKm;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -38,7 +38,7 @@ public class TakeOrder {
     @Inject
     OrderQuery orderQuery;
     @Inject
-    MapTest mapTest;
+    PriceForKm priceForKm;
 
     @PostConstruct
     private void init(){
@@ -82,7 +82,7 @@ public class TakeOrder {
 
     public void calculatePrice(){
         LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
-        price = Integer.parseInt(distanceValue.trim()) / 1000 * mapTest.priceForKm(carType);
+        price = Integer.parseInt(distanceValue.trim()) / 1000 * priceForKm.priceForKm(carType);
     }
 
     public CarType[] getCarTypes() {

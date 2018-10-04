@@ -31,6 +31,11 @@
             <to-view-id>pages/invalid_password.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>goToOrderStatisticPage</from-outcome>
+            <to-view-id>pages/admin/order-statistic.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 
 
