@@ -62,9 +62,8 @@ public class TakeOrder {
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
         orderEntity.setCarType(carType);
-        //System.out.println(carType);
         try {
-            //orderRepository.save(orderEntity);
+            orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
                 e.printStackTrace();
                 LOGGER.info(fromAddress + " " +
@@ -75,14 +74,14 @@ public class TakeOrder {
                         additionalService.toString() + " " +
                         otherInfoToDriver);
         }
-
-        orderQuery.addOrder(orderEntity);
-
     }
 
+    //Доработать
     public void calculatePrice(){
         LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
-        price = Integer.parseInt(distanceValue.trim()) / 1000 * priceForKm.priceForKm(carType);
+        Integer distanceInKm = Integer.parseInt(distanceValue.trim()) / 1000;
+        if (distanceInKm < 5) price = 50;
+        else price = distanceInKm * priceForKm.priceForKm(carType);
     }
 
     public CarType[] getCarTypes() {
