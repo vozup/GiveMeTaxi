@@ -2,9 +2,15 @@ package com.vozup.givemetaxi;
 
 
 public enum CarType {
-    STANDART,
-    COMFORT,
-    BUISNESS,
-    UNIVERSAL,
-    MICROBUS
+    STANDART("STANDART"),
+    COMFORT("COMFORT"),
+    BUISNESS("BUISNESS"),
+    UNIVERSAL("UNIVERSAL"),
+    MICROBUS("MICROBUS");
+
+    String carType;
+
+    CarType(String carType) {
+        this.carType = carType;
+    }
 }

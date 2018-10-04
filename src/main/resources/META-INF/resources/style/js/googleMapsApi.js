@@ -87,10 +87,23 @@ function calcRoute() {
         }
     });
 }
+
 function sendDistanceToServer(distanceText, distanceValue) {
     PF('distanceText').jq.val(distanceText);
     PF('distanceValue').jq.val(distanceValue);
-    var fromRadioButton = PF('rbCarType').jq.val();
-    PF('resultCarType').jq.val(fromRadioButton);
+    var rbChecked = getCheckedRbValue();
+    PF('resultCarType').jq.val(rbChecked);
     PF('sendResults').jq.click();
+}
+
+//
+function getCheckedRbValue() {
+    var radioGroupLength = document.forms['centerForm']['centerForm:car'].length;
+    var checkedRbValue;
+    for (i = 0; i < radioGroupLength; i++) {
+        if (document.forms['centerForm']['centerForm:car'][i].checked === true) {
+            checkedRbValue = document.forms['centerForm']['centerForm:car'][i].value;
+        }
+    }
+    return checkedRbValue;
 }

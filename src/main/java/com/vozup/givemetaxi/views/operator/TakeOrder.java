@@ -11,9 +11,9 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Time;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -62,9 +62,9 @@ public class TakeOrder {
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
         orderEntity.setCarType(carType);
-
+        //System.out.println(carType);
         try {
-            orderRepository.save(orderEntity);
+            //orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
                 e.printStackTrace();
                 LOGGER.info(fromAddress + " " +
@@ -83,6 +83,10 @@ public class TakeOrder {
     public void calculatePrice(){
         LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
         price = Integer.parseInt(distanceValue.trim()) / 1000 * mapTest.priceForKm(carType);
+    }
+
+    public CarType[] getCarTypes() {
+        return CarType.values();
     }
 
     public Integer getPrice() {

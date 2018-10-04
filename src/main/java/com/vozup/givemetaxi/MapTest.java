@@ -19,6 +19,7 @@ public class MapTest {
         priceForKm = new HashMap<>();
         priceForKm.put(CarType.STANDART, 10);
         priceForKm.put(CarType.BUISNESS, 20);
+        priceForKm.put(CarType.UNIVERSAL, 20);
         priceForKm.put(CarType.COMFORT, 25);
         priceForKm.put(CarType.MICROBUS, 25);
     }

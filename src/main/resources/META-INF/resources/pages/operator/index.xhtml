@@ -54,12 +54,12 @@
                                 showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru" required="true"
                                 requiredMessage="Поле Дата обязательное"/>
 
-                    <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
                     <p:outputLabel for="car" value="Авто:"/>
                     <p:selectOneRadio id="car" value="#{takeOrder.carType}"
-                                      widgetVar="rbCarType"
                                       required="true" style="text-align:left"
                                       requiredMessage="Обязательное поле">
+                        <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
+
                         <f:selectItem itemLabel="Стандарт" itemValue="#{CarType.STANDART}"/>
                         <f:selectItem itemLabel="Комфорт" itemValue="#{CarType.COMFORT}" />
                         <f:selectItem itemLabel="Бизнес" itemValue="#{CarType.BUISNESS}" />
