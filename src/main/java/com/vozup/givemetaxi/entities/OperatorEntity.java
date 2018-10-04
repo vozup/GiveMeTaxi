@@ -1,6 +1,5 @@
 package com.vozup.givemetaxi.entities;
 
-import javax.inject.Singleton;
 import javax.persistence.*;
 
 @Entity
@@ -13,6 +12,14 @@ public class OperatorEntity {
     private String lastName;
     private String login;
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

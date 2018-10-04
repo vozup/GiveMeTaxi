@@ -15,11 +15,12 @@
     <p:layout fullPage="true" style="border: 0" >
         <p:layoutUnit id="left" position="west" size="300" resizable="false" closable="false" collapsible="true"
                       header="Таблицы" minSize="300">
-            <p:button outcome="goToDriversPage" value="Водителя"/>
-            <p:button outcome="goToOperatorsPage" value="Операторы"/>
-            <p:button outcome="goToOrderStatisticPage" value="Статистика заказов"/>
-            <p:button outcome="goToSiteManagersPage" value="Администраторы"/>
-
+            <p:panelGrid columns="1" styleClass="ui-noborder" id="button">
+                <p:button styleClass="categoryButtons" outcome="goToDriversPage" value="Водителя"/>
+                <p:button styleClass="categoryButtons" outcome="goToOperatorsPage" value="Операторы"/>
+                <p:button styleClass="categoryButtons" outcome="goToOrderStatisticPage" value="Статистика заказов"/>
+                <p:button styleClass="categoryButtons" outcome="goToSiteManagersPage" value="Администраторы"/>
+            </p:panelGrid>
         </p:layoutUnit>
         <p:layoutUnit id="center" position="center">
 
