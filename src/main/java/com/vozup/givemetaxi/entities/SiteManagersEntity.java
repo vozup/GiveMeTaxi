@@ -15,6 +15,17 @@ public class SiteManagersEntity {
     private String name;
     private String lastName;
 
+    public SiteManagersEntity() {
+    }
+
+    public SiteManagersEntity(SiteManagersEntity sm) {
+        this.id = sm.getId();
+        this.login = sm.getLogin();
+        this.password = sm.getPassword();
+        this.name = sm.getName();
+        this.lastName = sm.getLastName();
+    }
+
     public Long getId() {
         return id;
     }

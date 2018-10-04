@@ -1,13 +1,16 @@
 package com.vozup.givemetaxi.views.operator;
 
 import com.vozup.givemetaxi.CarType;
-import com.vozup.givemetaxi.OrderQuery;
 import com.vozup.givemetaxi.PriceForKm;
 import com.vozup.givemetaxi.entities.OrderEntity;
+import com.vozup.givemetaxi.repository.DriverRepository;
+import com.vozup.givemetaxi.repository.OperatorRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.sql.Time;
@@ -36,9 +39,14 @@ public class TakeOrder {
     @Inject
     OrderRepository orderRepository;
     @Inject
-    OrderQuery orderQuery;
-    @Inject
     PriceForKm priceForKm;
+    @Inject
+    CheckOperator operator;
+    /////////
+    @Inject
+    OperatorRepository repository;
+    @Inject
+    DriverRepository driver;
 
     @PostConstruct
     private void init(){
@@ -62,18 +70,27 @@ public class TakeOrder {
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
         orderEntity.setCarType(carType);
+        //////////////////////
+        if (operator.getLogin() != null) {
+            orderEntity.setOperator(repository.findByLogin(operator.getLogin()));
+            orderEntity.setDriver(driver.findById(1L).get());
+        } else showMessage("Нет водителя или не выполнен вход");
+        /////////////////////
         try {
             orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
-                e.printStackTrace();
-                LOGGER.info(fromAddress + " " +
-                        toAddress + " " +
-                        onDate + " " +
-                        timeFormat.format(onDate) + " " +
-                        carType + " " +
-                        additionalService.toString() + " " +
-                        otherInfoToDriver);
+            e.printStackTrace();
+            LOGGER.info(fromAddress + " " +
+                    toAddress + " " +
+                    onDate + " " +
+                    timeFormat.format(onDate) + " " +
+                    carType + " " +
+                    additionalService.toString() + " " +
+                    otherInfoToDriver);
+        } finally {
+            showMessage("Ошибка при сохранении заказа");
         }
+        showMessage("Заказ отправлен в обработку");
     }
 
     //Доработать
@@ -82,6 +99,12 @@ public class TakeOrder {
         Integer distanceInKm = Integer.parseInt(distanceValue.trim()) / 1000;
         if (distanceInKm < 5) price = 50;
         else price = distanceInKm * priceForKm.priceForKm(carType);
+    }
+
+    private void showMessage(String str) {
+        FacesMessage message = new FacesMessage(str);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, message);
     }
 
     public CarType[] getCarTypes() {

@@ -1,6 +1,7 @@
 package com.vozup.givemetaxi.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "operator")
@@ -12,6 +13,8 @@ public class OperatorEntity {
     private String lastName;
     private String login;
     private String password;
+    @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
+    private List<OrderEntity> orders;
 
     public Long getId() {
         return id;
@@ -19,6 +22,14 @@ public class OperatorEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<OrderEntity> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderEntity> orders) {
+        this.orders = orders;
     }
 
     public String getName() {

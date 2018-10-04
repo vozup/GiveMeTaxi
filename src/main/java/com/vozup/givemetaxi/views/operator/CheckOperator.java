@@ -10,6 +10,7 @@ import javax.inject.Named;
 public class CheckOperator {
     @Inject
     private OperatorRepository repository;
+    OperatorEntity operatorEntity;
 
     private String name;
     private String lastName;
@@ -18,7 +19,7 @@ public class CheckOperator {
 
     public String checkPassword() {
         if (login != null && password != null) {
-            OperatorEntity operatorEntity = repository.findByLogin(this.login);
+            operatorEntity = repository.findByLogin(this.login);
 
             if (operatorEntity.getLogin().equals(login) && operatorEntity.getPassword().equals(password)){
                 System.out.println();
@@ -26,6 +27,14 @@ public class CheckOperator {
             }
         }
         return "goToInvalidPasswordPage";
+    }
+
+    public OperatorEntity getOperatorEntity() {
+        return operatorEntity;
+    }
+
+    public void setOperatorEntity(OperatorEntity operatorEntity) {
+        this.operatorEntity = operatorEntity;
     }
 
     public String getName() {

@@ -4,10 +4,7 @@ import com.vozup.givemetaxi.CarType;
 
 import javax.persistence.*;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 
 @Entity
@@ -29,12 +26,12 @@ public class OrderEntity {
     private String messageForDriver;
     private String clientPhoneNumber;
     private boolean isReceived;
-
-    public String dateInHumanRead(){
-        DateFormat dateFormat = new SimpleDateFormat("dd/mm/yy");
-        return dateFormat.format(date);
-    }
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id", nullable = false)
+    private DriverEntity driver;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "operator_id", nullable = false)
+    private OperatorEntity operator;
 
     public Long getId() {
 
@@ -43,6 +40,14 @@ public class OrderEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public OperatorEntity getOperator() {
+        return operator;
+    }
+
+    public void setOperator(OperatorEntity operator) {
+        this.operator = operator;
     }
 
     public Time getTime() {
@@ -115,5 +120,13 @@ public class OrderEntity {
 
     public void setClientPhoneNumber(String clientPhoneNumber) {
         this.clientPhoneNumber = clientPhoneNumber;
+    }
+
+    public DriverEntity getDriver() {
+        return driver;
+    }
+
+    public void setDriver(DriverEntity driver) {
+        this.driver = driver;
     }
 }
