@@ -22,7 +22,7 @@
                 Row Editing with add functionality
             </f:facet>
 
-            <p:ajax event="rowEdit" listener="#{dtAddViewSiteManager.onRowEdit}" update=":form:msgs"/>
+            <p:ajax event="rowEdit" listener="#{dtAddViewSiteManager.onRowEdit}" update=":form:msgs, form:manager"/>
             <p:ajax event="rowEditCancel" listener="#{dtAddViewSiteManager.onRowCancel}" update=":form:msgs"/>
 
             <p:column headerText="Id">

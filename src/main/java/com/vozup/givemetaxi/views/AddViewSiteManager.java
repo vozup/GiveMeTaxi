@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,17 +26,15 @@ public class AddViewSiteManager {
 
     }
 
-    public void onRowEdit(RowEditEvent event) throws Exception{
+    @Transactional
+    public void onRowEdit(RowEditEvent event) {
         SiteManagersEntity temp = (SiteManagersEntity)event.getObject();
-        //System.out.println(sm.getLogin());
-        SiteManagersEntity sm = repository.findById(temp.getId()).orElseThrow(() ->new Exception("Empty object"));
 
-
+        repository.updateSiteManagersEntity(temp.getId(), temp.getLogin(),
+                temp.getPassword(), temp.getName(), temp.getLastName());
 
         FacesMessage msg = new FacesMessage("Manager Edited", ((SiteManagersEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
-
-
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -44,7 +43,7 @@ public class AddViewSiteManager {
     }
 
     public void onAddNew() {
-        // Add one new car to the table:
+        // Add one new manager to the table:
         SiteManagersEntity managersEntity = new SiteManagersEntity();
         int a = RandomUtils.nextInt(0, 100);
         managersEntity.setLogin("admin" + a);
