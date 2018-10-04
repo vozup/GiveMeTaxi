@@ -36,6 +36,21 @@
             <to-view-id>pages/admin/order-statistic.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>goToDriversPage</from-outcome>
+            <to-view-id>pages/admin/drivers.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToOperatorsPage</from-outcome>
+            <to-view-id>pages/admin/operators.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>goToSiteManagersPage</from-outcome>
+            <to-view-id>pages/admin/site-managers.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 
 

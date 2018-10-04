@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Named("dtAddViewSiteManager")
 public class AddViewSiteManager {
@@ -51,8 +50,6 @@ public class AddViewSiteManager {
         managersEntity.setLogin("admin" + a);
         managersEntity.setPassword("admin" + a);
 
-
-        //siteManager.add(managersEntity);
         repository.save(managersEntity);
 
         FacesMessage msg = new FacesMessage("New Manager added", managersEntity.getId().toString());
