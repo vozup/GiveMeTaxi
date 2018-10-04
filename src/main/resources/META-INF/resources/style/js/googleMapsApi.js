@@ -103,6 +103,7 @@ function getCheckedRbValue() {
     for (i = 0; i < radioGroupLength; i++) {
         if (document.forms['centerForm']['centerForm:car'][i].checked === true) {
             checkedRbValue = document.forms['centerForm']['centerForm:car'][i].value;
+            break;
         }
     }
     return checkedRbValue;
