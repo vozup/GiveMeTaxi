@@ -6,8 +6,8 @@ import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
+import org.apache.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -19,11 +19,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Named
 public class TakeOrder {
-    private static final Logger LOGGER = Logger.getLogger(TakeOrder.class.getName());
+    private static final Logger log = Logger.getLogger(TakeOrder.class);
 
     private String fromAddress;
     private String toAddress;
@@ -55,6 +54,7 @@ public class TakeOrder {
     }
 
     public void actionTakeOrder(){
+        log.info("In actionTakeOrder()");
         additionalService = service.getSelectedAdditionalService();
 
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -67,6 +67,7 @@ public class TakeOrder {
         orderEntity.setDate(onDate);
         /**
          *  @inspect Сохраняет не 07 а 7 минут
+         *  Log4j dont work
          */
         orderEntity.setTime(Time.valueOf(timeFormat.format(onDate)));
         orderEntity.setClientPhoneNumber(clientPhoneNumber);
@@ -80,6 +81,7 @@ public class TakeOrder {
             orderEntity.setDriver(driver.findById(1L).get());
         } else{
             showMessage("Нет водителя или не выполнен вход");
+            log.error("Нет водителя или не выполнен вход");
             return;
         }
         /////////////////////
@@ -87,7 +89,7 @@ public class TakeOrder {
             orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
             e.printStackTrace();
-            LOGGER.info(fromAddress + " " +
+            log.error(fromAddress + " " +
                     toAddress + " " +
                     onDate + " " +
                     timeFormat.format(onDate) + " " +
@@ -96,11 +98,18 @@ public class TakeOrder {
                     otherInfoToDriver);
         }
         showMessage("Заказ отправлен в обработку");
+        log.info(fromAddress + " " +
+                toAddress + " " +
+                onDate + " " +
+                timeFormat.format(onDate) + " " +
+                carType + " " +
+                additionalService.toString() + " " +
+                otherInfoToDriver);
     }
 
     //Доработать
     public void calculatePrice(){
-        LOGGER.info("distanceValue " + distanceValue + " " + "Car type " + carType);
+        log.info("distanceValue " + distanceValue + " " + "Car type " + carType);
         Integer distanceInKm = Integer.parseInt(distanceValue.trim()) / 1000;
         if (distanceInKm < 5) price = 50;
         else price = distanceInKm * priceForKm.priceForKm(carType);
