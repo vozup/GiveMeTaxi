@@ -19,10 +19,13 @@ public class CarEntity {
     //Марка машины
     private String carBrand;
     //Номер машины
+    @Column(unique = true)
     private String carNumber;
     //Техпаспорт
+    @Column(unique = true)
     private String technicalCoupon;
     //Номер страховки
+    @Column(unique = true)
     private String numberOfCoverage;
     @OneToOne()
     private DriverEntity driver;

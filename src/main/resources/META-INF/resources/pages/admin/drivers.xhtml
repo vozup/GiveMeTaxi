@@ -6,138 +6,195 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <title>
-    Operator
+    Drivers
 </title>
 <h:head>
     <h:outputStylesheet name="primefaces/components.css"/>
     <h:outputStylesheet name="style/style.css"/>
 </h:head>
 <h:body>
-    <h:form id="form">
-        <p:growl id="msgs" showDetail="true"/>
+    <p:fieldset id="drivers" legend="Drivers">
+        <h:form id="driverForm">
+            <p:growl id="msgs" showDetail="true"/>
 
-        <p:dataTable id="driver" var="driver" value="#{dtDriver.drivers}" editable="true" style="margin-bottom:20px">
-            <f:facet name="header">
-                Row Editing
-            </f:facet>
+            <p:dataTable id="driver" var="driver" value="#{dtDriver.drivers}" editable="true" style="margin-bottom:20px"
+            paginator="true" paginatorPosition="bottom" rows="10">
 
-            <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}" update=":form:msgs"/>
-            <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update=":form:msgs"/>
+                <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}" update=":driverForm:msgs"/>
+                <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update=":driverForm:msgs"/>
 
-            <p:column headerText="Id">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.id}"/></f:facet>
-                    <f:facet name="input"><p:inputText id="modelInput" value="#{driver.id}" style="width:100%"
-                                                       disabled="true"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="Id">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.id}"/></f:facet>
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{driver.id}" style="width:100%"
+                                                           disabled="true"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="First Name">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.firstName}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.firstName}" style="width:100%"
-                                                       label="firstname"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="First Name">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.firstName}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{driver.firstName}" style="width:100%"
+                                                           label="firstname"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="Last Name">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.lastName}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.lastName}" style="width:100%" label="lastname"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="Last Name">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.lastName}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{driver.lastName}" style="width:100%" label="lastname"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="Phone Number">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.phoneNumber}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.phoneNumber}" style="width:100%" label="phone"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="Phone Number">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.phoneNumber}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{driver.phoneNumber}" style="width:100%" label="phone"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="Is smoking">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.smoking}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.smoking}" style="width:100%"
-                                                       label="smoking"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="Is smoking">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.smoking}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{driver.smoking}" style="width:100%"
+                                                           label="smoking"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="Is busy">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.busy}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.busy}" style="width:100%"
-                                                       label="busy" disabled="true"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="Is busy">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.busy}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{driver.busy}" style="width:100%"
+                                                           label="busy" disabled="true"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="Car Type">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.car.carType}"/></f:facet>
-                    <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
-                    <f:facet name="input">
-                        <h:selectOneMenu value="#{driver.car.carType}" style="width:100%">
-                            <f:selectItems value="#{CarType.ALL_ENUM_VALUES}" var="type" itemLabel="#{type}"
-                                           itemValue="#{type}"/>
-                        </h:selectOneMenu>
-                    </f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column headerText="Car ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{driver.car.id}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{driver.car.id}" style="width:100%"
+                                                           label="carId"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
 
-            <p:column headerText="Car Brand">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.car.carBrand}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.car.carBrand}" style="width:100%"
-                                                       label="carbrand"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                <p:column style="width:32px">
+                    <p:rowEditor/>
+                </p:column>
+            </p:dataTable>
 
-            <p:column headerText="Car Model">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.car.carModel}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.car.carModel}" style="width:100%"
-                                                       label="carmodel"/></f:facet>
-                </p:cellEditor>
-            </p:column>
-
-            <p:column headerText="Car Number">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.car.carNumber}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.car.carNumber}" style="width:100%"
-                                                       label="carbrand"/></f:facet>
-                </p:cellEditor>
-            </p:column>
-
-            <p:column headerText="Technical coupon">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.car.technicalCoupon}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.car.technicalCoupon}" style="width:100%"
-                                                       label="carbrand"/></f:facet>
-                </p:cellEditor>
-            </p:column>
-
-            <p:column headerText="Number of coverage">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{driver.car.numberOfCoverage}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{driver.car.numberOfCoverage}" style="width:100%"
-                                                       label="carbrand"/></f:facet>
-                </p:cellEditor>
-            </p:column>
-
-
-            <p:column style="width:32px">
-                <p:rowEditor/>
-            </p:column>
-        </p:dataTable>
-
-        <div class="ui-g">
-            <div class="ui-g-12">
-                <p:commandButton value="Add new row" styleClass="ui-priority-primary"
-                                 process="@this" update=":form:msgs,form:driver"
-                                 actionListener="#{dtDriver.onAddNew()}"
-                                 oncomplete="PF('driver').addRow();"/>
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <p:commandButton value="Add new row" styleClass="ui-priority-primary"
+                                     process="@this" update=":driverForm:msgs,:driverForm:driver"
+                                     actionListener="#{dtDriver.onAddNew()}"
+                                     oncomplete="PF('driver').addRow();"/>
+                </div>
             </div>
-        </div>
-    </h:form>
+        </h:form>
+    </p:fieldset>
+    <p:spacer/>
+    <p:fieldset id="cars" legend="Cars">
+        <h:form id="carsForm">
+
+            <p:growl id="carMsgs" showDetail="true"/>
+            <p:dataTable id="car" var="car" value="#{dtCar.cars}" editable="true" style="margin-bottom:20px"
+                         paginator="true" paginatorPosition="bottom" rows="10">
+                <f:facet name="header">
+                    Row Editing
+                </f:facet>
+
+                <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}" update=":carsForm:carMsgs"/>
+                <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update=":carsForm:carMsgs"/>
+
+                <p:column style="width:20px">
+                    <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+                    <p:draggable for="dragIcon" revert="true" helper="clone"/>
+                </p:column>
+
+                <p:column headerText="Id">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.id}"/></f:facet>
+                        <f:facet name="input"><p:inputText id="modelCarInput" value="#{car.id}" style="width:100%"
+                                                           disabled="true"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Car Brand">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.carBrand}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.carBrand}" style="width:100%"
+                                                           label="firstname"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Car Model">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.carModel}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.carModel}" style="width:100%"
+                                                           label="carmodel"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Car Number">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.carNumber}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.carNumber}" style="width:100%"
+                                                           label="carbrand"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Technical coupon">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.technicalCoupon}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.technicalCoupon}" style="width:100%"
+                                                           label="technicalCoupon"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Number of coverage">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.numberOfCoverage}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.numberOfCoverage}" style="width:100%"
+                                                           label="numberOfCoverage"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Car Type">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.carType}"/></f:facet>
+                        <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
+                        <f:facet name="input">
+                            <h:selectOneMenu value="#{car.carType}" style="width:100%">
+                                <f:selectItems value="#{CarType.ALL_ENUM_VALUES}" var="type" itemLabel="#{type}"
+                                               itemValue="#{type}"/>
+                            </h:selectOneMenu>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column headerText="Driver ID">
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{car.driver.id}"/></f:facet>
+                        <f:facet name="input"><p:inputText value="#{car.driver.id}" style="width:100%"
+                                                           label="driverId"/></f:facet>
+                    </p:cellEditor>
+                </p:column>
+
+                <p:column style="width:32px">
+                    <p:rowEditor/>
+                </p:column>
+            </p:dataTable>
+
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <p:commandButton value="Add new row" styleClass="ui-priority-primary"
+                                     process="@this" update=":carsForm:carMsgs,carsForm:car"
+                                     actionListener="#{dtCar.onAddNew()}"
+                                     oncomplete="PF('car').addRow();"/>
+                </div>
+            </div>
+        </h:form>
+    </p:fieldset>
 
 </h:body>
 </html>

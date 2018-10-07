@@ -18,10 +18,11 @@ public class OrderQuery {
 
     @PostConstruct
     void init(){
-        orderList = repository.findAll();
+
     }
 
     public List<OrderEntity> getOrderList() {
+        orderList = repository.findAll();
         return orderList;
     }
 

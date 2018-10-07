@@ -16,6 +16,7 @@ import javax.inject.Named;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -64,6 +65,9 @@ public class TakeOrder {
         orderEntity.setToAddress(toAddress);
         //-----
         orderEntity.setDate(onDate);
+        /**
+         *  @inspect Сохраняет не 07 а 7 минут
+         */
         orderEntity.setTime(Time.valueOf(timeFormat.format(onDate)));
         orderEntity.setClientPhoneNumber(clientPhoneNumber);
 
@@ -74,7 +78,10 @@ public class TakeOrder {
         if (operator.getLogin() != null) {
             orderEntity.setOperator(repository.findByLogin(operator.getLogin()));
             orderEntity.setDriver(driver.findById(1L).get());
-        } else showMessage("Нет водителя или не выполнен вход");
+        } else{
+            showMessage("Нет водителя или не выполнен вход");
+            return;
+        }
         /////////////////////
         try {
             orderRepository.save(orderEntity);
@@ -87,8 +94,6 @@ public class TakeOrder {
                     carType + " " +
                     additionalService.toString() + " " +
                     otherInfoToDriver);
-        } finally {
-            showMessage("Ошибка при сохранении заказа");
         }
         showMessage("Заказ отправлен в обработку");
     }

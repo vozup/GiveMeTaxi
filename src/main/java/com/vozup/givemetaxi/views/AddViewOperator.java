@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Named("dtOperator")
@@ -19,17 +20,19 @@ public class AddViewOperator {
     @Inject
     OperatorRepository repository;
 
-    public void onRowEdit(RowEditEvent event) throws Exception {
-        OperatorEntity temp = (OperatorEntity) event.getObject();
-        //System.out.println(sm.getLogin());
-        //OperatorEntity operatorEntity = repository.findById(temp.getId()).orElseThrow(() ->new Exception("Empty object"));
+    @Transactional
+    public void onRowEdit(RowEditEvent event){
+        OperatorEntity updated = (OperatorEntity) event.getObject();
 
-        FacesMessage msg = new FacesMessage("Manager Edited", ((SiteManagersEntity) event.getObject()).getId().toString());
+        repository.updateOperator(updated.getId(), updated.getLogin(), updated.getPassword(),
+                updated.getName(), updated.getLastName());
+
+        FacesMessage msg = new FacesMessage("Operator Edited", ((OperatorEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((SiteManagersEntity) event.getObject()).getId().toString());
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((OperatorEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -42,11 +45,12 @@ public class AddViewOperator {
 
         repository.save(operatorEntity);
 
-        FacesMessage msg = new FacesMessage("New Manager added", operatorEntity.getId().toString());
+        FacesMessage msg = new FacesMessage("New Operator added", operatorEntity.getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public List<OperatorEntity> getOperatorEntityList() {
+        operatorEntityList = repository.findAll();
         return operatorEntityList;
     }
 

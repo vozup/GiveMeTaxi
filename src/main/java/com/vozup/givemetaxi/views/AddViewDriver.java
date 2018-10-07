@@ -31,13 +31,14 @@ public class AddViewDriver {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
+    //Добавляет только одного
     public void onAddNew() {
         // Add one new car to the table:
         DriverEntity driverEntity = new DriverEntity();
         int a = RandomUtils.nextInt(0, 100);
         driverEntity.setFirstName("NewDriver" + a);
         driverEntity.setLastName("NewDriver" + a);
-
+        System.out.println(driverEntity.getFirstName());
         repository.save(driverEntity);
 
         FacesMessage msg = new FacesMessage("New Driver added", driverEntity.getId().toString());
