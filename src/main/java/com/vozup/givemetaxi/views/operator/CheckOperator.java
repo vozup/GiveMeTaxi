@@ -2,12 +2,17 @@ package com.vozup.givemetaxi.views.operator;
 
 import com.vozup.givemetaxi.entities.OperatorEntity;
 import com.vozup.givemetaxi.repository.OperatorRepository;
+import com.vozup.givemetaxi.views.admin.CheckSiteManager;
+import org.apache.log4j.Logger;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 @Named
 public class CheckOperator {
+    private static final Logger LOGGER = Logger.getLogger(CheckOperator.class);
     @Inject
     private OperatorRepository repository;
     OperatorEntity operatorEntity;
@@ -22,11 +27,24 @@ public class CheckOperator {
             operatorEntity = repository.findByLogin(this.login);
 
             if (operatorEntity.getLogin().equals(login) && operatorEntity.getPassword().equals(password)){
-                System.out.println();
+                LOGGER.info("Sign in :" + login);
                 return "goToOperatorHomePage";
             }
         }
-        return "goToInvalidPasswordPage";
+        LOGGER.error("Incorrect Login or Password when sign in");
+        showMessage("Login or password are incorect!");
+        resetLoginAndPasswordFields();
+        return null;
+    }
+
+    private void resetLoginAndPasswordFields(){
+        this.login = "";
+        this.password = "";
+    }
+
+    private void showMessage(String message){
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(message));
     }
 
     public OperatorEntity getOperatorEntity() {

@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi.views;
+package com.vozup.givemetaxi.dt;
 
 import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.CarEntity;

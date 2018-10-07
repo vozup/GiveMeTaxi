@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi.views;
+package com.vozup.givemetaxi.dt;
 
 import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
