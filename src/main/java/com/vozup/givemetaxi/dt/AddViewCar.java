@@ -25,6 +25,8 @@ public class AddViewCar {
     public void onRowEdit(RowEditEvent event){
         CarEntity updated = (CarEntity) event.getObject();
 
+        repository.save(updated);
+
         FacesMessage msg = new FacesMessage("Car Edited", ((CarEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

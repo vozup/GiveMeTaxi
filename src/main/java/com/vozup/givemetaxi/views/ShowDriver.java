@@ -19,7 +19,7 @@ public class ShowDriver {
 
     @PostConstruct
     void init(){
-        drivers = driverRepository.findAll();
+        drivers = driverRepository.findAllByBusyIsFalse();
     }
 
     public List<DriverEntity> getDrivers() {
@@ -35,7 +35,6 @@ public class ShowDriver {
     }
 
     public void setSelectedDriver(DriverEntity selectedDriver) {
-        System.out.println(selectedDriver.getFirstName());
         this.selectedDriver = selectedDriver;
     }
 }

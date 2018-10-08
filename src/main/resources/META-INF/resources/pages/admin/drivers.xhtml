@@ -20,7 +20,7 @@
             <p:dataTable id="driver" var="driver" value="#{dtDriver.drivers}" editable="true" style="margin-bottom:20px"
             paginator="true" paginatorPosition="bottom" rows="10">
 
-                <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}" update=":driverForm:msgs"/>
+                <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}" update=":driverForm:msgs,:driverForm:driver"/>
                 <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update=":driverForm:msgs"/>
 
                 <p:column headerText="Id">
@@ -103,7 +103,7 @@
                     Row Editing
                 </f:facet>
 
-                <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}" update=":carsForm:carMsgs"/>
+                <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}" update=":carsForm:carMsgs,:carsForm:car"/>
                 <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update=":carsForm:carMsgs"/>
 
                 <p:column style="width:20px">

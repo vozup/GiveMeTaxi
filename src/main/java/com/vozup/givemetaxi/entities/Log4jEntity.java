@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 
@@ -13,7 +14,7 @@ public class Log4jEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    private Date date;
+    private Timestamp date;
     private String level;
     private String logger;
     private String message;
@@ -27,11 +28,11 @@ public class Log4jEntity {
         Id = id;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

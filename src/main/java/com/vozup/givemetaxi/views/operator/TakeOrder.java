@@ -2,6 +2,7 @@ package com.vozup.givemetaxi.views.operator;
 
 import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.PriceForKm;
+import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OperatorRepository;
@@ -75,15 +76,17 @@ public class TakeOrder {
         orderEntity.setAdditionalService(additionalService.toString());
         orderEntity.setMessageForDriver(otherInfoToDriver);
         orderEntity.setCarType(carType);
+        //Hardcore
+        orderEntity.setOperator(repository.findById(1L).get());
         //////////////////////
-        if (operator.getLogin() != null) {
-            orderEntity.setOperator(repository.findByLogin(operator.getLogin()));
-            orderEntity.setDriver(driver.findById(1L).get());
-        } else{
-            showMessage("Нет водителя или не выполнен вход");
-            log.error("Нет водителя или не выполнен вход");
-            return;
-        }
+//        if (operator.getLogin() != null) {
+//            orderEntity.setOperator(repository.findByLogin(operator.getLogin()));
+//            orderEntity.setDriver(driver.findById(1L).get());
+//        } else{
+//            showMessage("Нет водителя или не выполнен вход");
+//            log.error("Нет водителя или не выполнен вход");
+//            return;
+//        }
         /////////////////////
         try {
             orderRepository.save(orderEntity);

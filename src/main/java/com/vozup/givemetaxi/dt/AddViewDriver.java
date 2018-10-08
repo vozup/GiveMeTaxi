@@ -19,8 +19,9 @@ public class AddViewDriver {
     DriverRepository repository;
 
     public void onRowEdit(RowEditEvent event) {
-        DriverEntity temp = (DriverEntity) event.getObject();
+        DriverEntity updated = (DriverEntity) event.getObject();
 
+        repository.save(updated);
 
         FacesMessage msg = new FacesMessage("Driver Edited", ((DriverEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);

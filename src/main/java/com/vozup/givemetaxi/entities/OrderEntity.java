@@ -27,10 +27,10 @@ public class OrderEntity {
     private String clientPhoneNumber;
     private boolean isReceived;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "driver_id", nullable = false)
+    @JoinColumn(name = "driver_id", nullable = true)
     private DriverEntity driver;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "operator_id", nullable = false)
+    @JoinColumn(name = "operator_id", nullable = true)
     private OperatorEntity operator;
 
     public Long getId() {

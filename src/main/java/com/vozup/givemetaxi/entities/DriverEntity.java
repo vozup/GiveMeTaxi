@@ -17,17 +17,17 @@ public class DriverEntity {
     @OneToOne
     private CarEntity car;
     private String phoneNumber;
-    private boolean isSmoking;
-    private boolean isBusy;
+    private boolean smoking;
+    private boolean busy;
     @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
 
-    public DriverEntity(String firstName, String lastName, CarEntity car, String phoneNumber, boolean isSmoking) {
+    public DriverEntity(String firstName, String lastName, CarEntity car, String phoneNumber, boolean smoking) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.car = car;
         this.phoneNumber = phoneNumber;
-        this.isSmoking = isSmoking;
+        this.smoking = smoking;
     }
 
     public DriverEntity() {
@@ -59,11 +59,11 @@ public class DriverEntity {
     }
 
     public boolean isBusy() {
-        return isBusy;
+        return busy;
     }
 
     public void setBusy(boolean busy) {
-        isBusy = busy;
+        this.busy = busy;
     }
 
     public String getFirstName() {
@@ -99,11 +99,11 @@ public class DriverEntity {
     }
 
     public boolean isSmoking() {
-        return isSmoking;
+        return smoking;
     }
 
     public void setSmoking(boolean smoking) {
-        isSmoking = smoking;
+        this.smoking = smoking;
     }
 
     public String getCarAddress() {
