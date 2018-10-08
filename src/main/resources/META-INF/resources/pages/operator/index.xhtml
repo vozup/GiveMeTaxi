@@ -129,6 +129,7 @@
                       collapsible="true" >
 
             <h:form id="driverDetailForm">
+                <p:poll interval="5" update="driverDT"/>
                 <p:growl id="driverDetailmsg" showDetail="false" />
 
                 <p:dataTable id="driverDT" value="#{showDriver.drivers}" var="driver" style="font-size: 12px">

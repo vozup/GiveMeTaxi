@@ -78,16 +78,7 @@ public class TakeOrder {
         orderEntity.setCarType(carType);
         //Hardcore
         orderEntity.setOperator(repository.findById(1L).get());
-        //////////////////////
-//        if (operator.getLogin() != null) {
-//            orderEntity.setOperator(repository.findByLogin(operator.getLogin()));
-//            orderEntity.setDriver(driver.findById(1L).get());
-//        } else{
-//            showMessage("Нет водителя или не выполнен вход");
-//            log.error("Нет водителя или не выполнен вход");
-//            return;
-//        }
-        /////////////////////
+
         try {
             orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){

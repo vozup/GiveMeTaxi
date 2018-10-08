@@ -71,7 +71,7 @@
 
                 <p:column headerText="Car ID">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{driver.car.id}"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{driver.car.id != null ? driver.car.id : 'none'}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{driver.car.id}" style="width:100%"
                                                            label="carId"/></f:facet>
                     </p:cellEditor>

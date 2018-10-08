@@ -23,6 +23,7 @@ public class ShowDriver {
     }
 
     public List<DriverEntity> getDrivers() {
+        drivers = driverRepository.findAllByBusyIsFalse();
         return drivers;
     }
 

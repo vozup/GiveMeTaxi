@@ -3,9 +3,7 @@ package com.vozup.givemetaxi.entities;
 import org.springframework.context.annotation.Primary;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.sql.Timestamp;
-import java.util.Calendar;
+import java.util.Date;
 
 
 @Entity
@@ -14,7 +12,8 @@ public class Log4jEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    private Timestamp date;
+    @Temporal(TemporalType.DATE)
+    private Date date;
     private String level;
     private String logger;
     private String message;
@@ -28,11 +27,11 @@ public class Log4jEntity {
         Id = id;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

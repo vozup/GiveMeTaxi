@@ -25,7 +25,7 @@ public class OrderEntity {
     private String additionalService;
     private String messageForDriver;
     private String clientPhoneNumber;
-    private boolean isReceived;
+    private boolean received;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id", nullable = true)
     private DriverEntity driver;
@@ -107,11 +107,11 @@ public class OrderEntity {
     }
 
     public boolean isReceived() {
-        return isReceived;
+        return received;
     }
 
     public void setReceived(boolean received) {
-        isReceived = received;
+        this.received = received;
     }
 
     public String getClientPhoneNumber() {

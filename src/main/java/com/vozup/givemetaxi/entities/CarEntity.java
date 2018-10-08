@@ -63,6 +63,10 @@ public class CarEntity {
         return id;
     }
 
+    public void setId(String id) {
+        System.out.println(id);
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

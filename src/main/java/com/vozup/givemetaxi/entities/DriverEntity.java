@@ -3,6 +3,7 @@ package com.vozup.givemetaxi.entities;
 import org.apache.commons.lang3.RandomUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +20,7 @@ public class DriverEntity {
     private String phoneNumber;
     private boolean smoking;
     private boolean busy;
-    @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "driver", fetch = FetchType.EAGER)
     private List<OrderEntity> orders;
 
     public DriverEntity(String firstName, String lastName, CarEntity car, String phoneNumber, boolean smoking) {
@@ -40,6 +41,11 @@ public class DriverEntity {
         driver.setLastName("NewDriver" + a);
         driver.setPhoneNumber("+3809112322" + a);
         return driver;
+    }
+
+    public void addOrder(OrderEntity order){
+        if (orders.isEmpty()) orders = new ArrayList<>();
+        else orders.add(order);
     }
 
     public List<OrderEntity> getOrders() {
