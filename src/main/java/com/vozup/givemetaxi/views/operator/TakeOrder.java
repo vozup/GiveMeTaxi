@@ -54,6 +54,7 @@ public class TakeOrder {
     }
 
     public void actionTakeOrder(){
+        log.info("In actionTakeOrder()");
         additionalService = service.getSelectedAdditionalService();
 
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -97,6 +98,13 @@ public class TakeOrder {
                     otherInfoToDriver);
         }
         showMessage("Заказ отправлен в обработку");
+        log.info(fromAddress + " " +
+                toAddress + " " +
+                onDate + " " +
+                timeFormat.format(onDate) + " " +
+                carType + " " +
+                additionalService.toString() + " " +
+                otherInfoToDriver);
     }
 
     //Доработать
