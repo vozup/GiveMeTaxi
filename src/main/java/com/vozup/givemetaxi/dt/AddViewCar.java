@@ -2,11 +2,8 @@ package com.vozup.givemetaxi.dt;
 
 import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.CarEntity;
-import com.vozup.givemetaxi.entities.DriverEntity;
-import com.vozup.givemetaxi.entities.OperatorEntity;
 import com.vozup.givemetaxi.repository.CarRepository;
-import com.vozup.givemetaxi.repository.DriverRepository;
-import org.apache.commons.lang3.RandomUtils;
+import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 
 import javax.faces.application.FacesMessage;
@@ -18,38 +15,21 @@ import java.util.List;
 
 @Named("dtCar")
 public class AddViewCar {
+    private static final Logger LOGGER = Logger.getLogger(AddViewCar.class);
     private List<CarEntity> cars;
     private Long driverId;
     private CarEntity selectedCar;
 
     @Inject
     CarRepository repository;
-    @Inject
-    DriverRepository driverRepository;
 
     @Transactional
     public void onRowEdit(RowEditEvent event){
         CarEntity updated = (CarEntity) event.getObject();
 
-
-
-//        if (updated.getDriver() == null){
-//            DriverEntity driver = driverRepository.findById(driverId).orElse(null);
-//            if(driver == null){
-//                showMessage("No available driver with " + driverId + " driverId");
-//                return;
-//            }
-//            updated.setDriver(driver);
-//            repository.save(updated);
-//
-//            driver.setCar(updated);
-//            driverRepository.save(driver);
-//
-//            showMessage("Car Edited");
-//        }else{
-//            repository.save(updated);
-//            showMessage("Car Edited");
-//        }
+        repository.save(updated);
+        showMessage("Car Edited");
+        LOGGER.info("Edited Row with car ID: " + updated.getId());
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -58,18 +38,29 @@ public class AddViewCar {
 
     public void onAddNew() {
         // Add one new car to the table:
-        CarEntity operatorEntity = new CarEntity();
+        CarEntity carEntity = new CarEntity();
 
-        operatorEntity.setCarType(CarType.STANDART);
+        carEntity.setCarType(CarType.STANDART);
 
-        repository.save(operatorEntity);
+        repository.save(carEntity);
 
         showMessage("New Car added");
+        LOGGER.info("Add Row with car ID: ");
     }
 
     private void showMessage(String str){
         FacesMessage msg = new FacesMessage(str);
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void deleteRow() {
+        if (selectedCar.getDriver() != null) {
+            showMessage("Can't delete, always set link to Driver");
+            LOGGER.error("Can't delete, always set link to Driver");
+        } else {
+            repository.delete(selectedCar);
+            LOGGER.info("Deleted Row with car ID: " + selectedCar.getId());
+        }
     }
 
     public CarEntity getSelectedCar() {

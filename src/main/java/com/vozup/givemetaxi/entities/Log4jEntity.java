@@ -1,7 +1,5 @@
 package com.vozup.givemetaxi.entities;
 
-import org.springframework.context.annotation.Primary;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,12 +10,11 @@ public class Log4jEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     private String level;
     private String logger;
     private String message;
-    private String method;
 
     public Integer getId() {
         return Id;
@@ -33,14 +30,6 @@ public class Log4jEntity {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public String getMethod() {
-        return method;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
     }
 
     public String getLogger() {

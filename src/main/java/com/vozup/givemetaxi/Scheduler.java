@@ -4,20 +4,19 @@ import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-@Component
+@Named
 public class Scheduler {
     @Inject
     DriverRepository driverRepository;
     @Inject
     OrderRepository orderRepository;
 
-    @Scheduled(initialDelay = 10000, fixedDelay = 5000)
+    @Scheduled(initialDelay = 10000, fixedDelay = 10000)
     public void findFreeCar() {
         //System.out.println("scheldure is started");
         DriverEntity driver = null;

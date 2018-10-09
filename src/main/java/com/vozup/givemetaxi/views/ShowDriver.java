@@ -1,9 +1,7 @@
 package com.vozup.givemetaxi.views;
 
-import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,11 +17,11 @@ public class ShowDriver {
 
     @PostConstruct
     void init(){
-        drivers = driverRepository.findAllByBusyIsFalse();
+        //drivers = driverRepository.findAllByBusyIsFalse();
     }
 
     public List<DriverEntity> getDrivers() {
-        drivers = driverRepository.findAllByBusyIsFalse();
+        drivers = driverRepository.findAllByBusyIsFalseAndCarIsNotNull();
         return drivers;
     }
 

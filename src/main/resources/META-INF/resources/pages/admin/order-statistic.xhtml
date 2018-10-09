@@ -7,6 +7,8 @@
     Статистика заказов
 </title>
 <h:head>
+    <h:outputStylesheet name="primefaces/components.css"/>
+    <h:outputStylesheet name="style/style.css"/>
 </h:head>
 <h:body>
     <h:form id="orderQueryForm">
@@ -14,10 +16,10 @@
 
         <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50"
                      rowStyleClass="bottom-row">
-            <p:column headerText="Id">
+            <p:column headerText="Id" style="width: 35px">
                 <h:outputText value="#{query.id}" />
             </p:column>
-            <p:column headerText="Номер заказчика">
+            <p:column headerText="Номер заказчика" width="120px">
                 <h:outputText value="#{query.clientPhoneNumber}" />
             </p:column>
             <p:column headerText="Сервис">
@@ -35,7 +37,7 @@
             <p:column headerText="Время">
                 <h:outputText value="#{query.time.hours}:#{query.time.minutes}" />
             </p:column>
-            <p:column headerText="Принят?">
+            <p:column headerText="Принят?" style="width: 60px">
                 <h:outputText value="#{query.received}" />
             </p:column>
         </p:dataTable>

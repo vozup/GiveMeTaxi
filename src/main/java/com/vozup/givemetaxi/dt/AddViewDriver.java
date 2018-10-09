@@ -5,6 +5,7 @@ import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.repository.CarRepository;
 import com.vozup.givemetaxi.repository.DriverRepository;
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 
 import javax.faces.application.FacesMessage;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Named("dtDriver")
 public class AddViewDriver {
+    private static final Logger LOGGER = Logger.getLogger(AddViewDriver.class);
     private List<DriverEntity> drivers;
     private DriverEntity selectedDriver;
     private Long carId;
@@ -25,42 +27,58 @@ public class AddViewDriver {
 
     public void onRowEdit(RowEditEvent event) {
         DriverEntity updated = (DriverEntity) event.getObject();
-        //Before Car.id == null
-        //After CarId == id
-        if (updated.getCar() == null && carId != null){
-            System.out.println("Driver class, car==null");
-            System.out.println("CarId "+ carId);
-        }
-        //Before Car.id == id
-        //After CarId == id
-        else if(updated.getCar() != null && carId != null){
-            System.out.println("Driver class, car!=null");
-            System.out.println("CarId "+ carId);
-        }else if(updated.getCar() == null && carId == null){
-
-        }else if(updated.getCar() != null && carId == null){
-
+        if (updated.getCar() == null && carId == null) return;
+        ///
+        if (repository.findFirstById(carId) != null) {
+            showMessage("Driver with car already exist");
+            LOGGER.error("Driver with car already exist");
+            return;
         }
 
+        if (updated.getCar() == null || carId != null) {
+            System.out.println(carId);
+            CarEntity car = carRepository.findById(carId).orElse(null);
+            if (car.getDriver() != null) {
+                showMessage("Driver with car already exist");
+                LOGGER.error("Driver with car already exist");
+                return;
+            }
+            if (car == null) {
+                showMessage("No avaible car with " + carId + " carId");
+                LOGGER.error("No avaible car with " + carId + " carId");
+                return;
+            }
+            updated.setCar(car);
+            repository.save(updated);
 
+            car.setDriver(updated);
+            carRepository.save(car);
 
+            showMessage("Driver Edited");
+            LOGGER.info("Edit Row with driver ID: " + updated.getId());
+        } else if (carId == null) {
+            CarEntity car = updated.getCar();
 
+            updated.setCar(null);
+            repository.save(updated);
 
+            car.setDriver(null);
+            carRepository.save(car);
 
+            showMessage("Driver Edited");
+            LOGGER.info("Edit Row with driver ID: " + updated.getId());
+        }
+    }
 
-        //System.out.println(carId);
-        //CarEntity car = carRepository.findById(carId).orElse(null);
-//        if (car == null){
-//            showMessage("No avaible car with " + carId + " carId");
-//            return;
-//        }
-//        updated.setCar(car);
-//        repository.save(updated);
-//
-//        car.setDriver(updated);
-//        carRepository.save(car);
-//
-//        showMessage("Driver Edited");
+    public void deleteRow() {
+        if (selectedDriver.getCar() != null) {
+            showMessage("Can't delete, always set link to Car");
+            LOGGER.error("Can't delete, always set link to Car");
+            return;
+        } else {
+            LOGGER.info("Delete Row with driver ID: " + selectedDriver.getId());
+            repository.delete(selectedDriver);
+        }
     }
 
     public void onRowCancel(RowEditEvent event) {
@@ -77,7 +95,7 @@ public class AddViewDriver {
         System.out.println(driverEntity.getFirstName());
         repository.save(driverEntity);
         showMessage("New Driver added");
-
+        LOGGER.info("Add Row with driver ID: ");
     }
 
     private void showMessage(String str){

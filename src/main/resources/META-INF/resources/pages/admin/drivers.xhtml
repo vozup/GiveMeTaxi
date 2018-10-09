@@ -24,7 +24,7 @@
                         update=":driverForm:msgs,:driverForm:driver,:carsForm:car"/>
                 <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update=":driverForm:msgs"/>
 
-                <p:column headerText="Id">
+                <p:column headerText="Id" style="width: 35px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{driver.id}"/></f:facet>
                         <f:facet name="input"><p:inputText id="modelInput" value="#{driver.id}" style="width:100%"
@@ -32,7 +32,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="First Name">
+                <p:column headerText="Имя">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{driver.firstName}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{driver.firstName}" style="width:100%"
@@ -40,40 +40,33 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Last Name">
+                <p:column headerText="Фамилия">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{driver.lastName}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{driver.lastName}" style="width:100%" label="lastname"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Phone Number">
+                <p:column headerText="Номер телефона">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{driver.phoneNumber}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{driver.phoneNumber}" style="width:100%" label="phone"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Is smoking">
+                <p:column headerText="Курит?" style="width: 50px">
                     <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{driver.smoking}"/></f:facet>
+                        <f:facet name="output"><h:outputText
+                                value="#{driver.smoking == false ? 'нет' : 'да'}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{driver.smoking}" style="width:100%"
                                                            label="smoking"/></f:facet>
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Is busy">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{driver.busy}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{driver.busy}" style="width:100%"
-                                                           label="busy" disabled="true"/></f:facet>
-                    </p:cellEditor>
-                </p:column>
-
-                <p:column headerText="Car ID">
+                <p:column headerText="ID автомобиля" style="width: 100px">
                     <p:cellEditor>
 
-                        <f:facet name="output"><h:outputText value="#{driver.car.id != null ? driver.car.id : 'none'}"/></f:facet>
+                        <f:facet name="output"><h:outputText value="#{driver.car.id}"/></f:facet>
                         <f:facet name="input">
                             <p:inputText value="#{dtDriver.carId}"
                                          style="width:100%" label="carId">
@@ -82,18 +75,22 @@
                         </f:facet>
                     </p:cellEditor>
                 </p:column>
-                <p:column>
-
-                </p:column>
 
                 <p:column style="width:32px">
                     <p:rowEditor/>
+                </p:column>
+
+                <p:column style="width:65px">
+                    <p:commandButton value="Delete" action="#{dtDriver.deleteRow}"
+                                     update=":driverForm:msgs,driverForm:driver">
+                        <f:setPropertyActionListener value="#{driver}" target="#{dtDriver.selectedDriver}"/>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
 
             <div class="ui-g">
                 <div class="ui-g-12">
-                    <p:commandButton value="Add new row" styleClass="ui-priority-primary"
+                    <p:commandButton value="Добавить водителя" styleClass="ui-priority-primary"
                                      process="@this" update=":driverForm:msgs"
                                      ajax="false"
                                      actionListener="#{dtDriver.onAddNew()}"
@@ -116,11 +113,6 @@
                 <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}"
                         update=":carsForm:carMsgs,:carsForm:car,:driverForm:driver"/>
                 <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update=":carsForm:carMsgs"/>
-
-                <p:column style="width:20px">
-                    <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
-                    <p:draggable for="dragIcon" revert="true" helper="clone"/>
-                </p:column>
 
                 <p:column headerText="Id">
                     <p:cellEditor>
@@ -183,26 +175,21 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Driver ID">
-                    <p:cellEditor>
-                        <f:facet name="output"><h:outputText value="#{car.driver.id}"/></f:facet>
-                        <f:facet name="input">
-                            <p:inputText value="#{dtCar.driverId}"
-                                         style="width:100%" label="driverId">
-                                <p:ajax/>
-                            </p:inputText>
-                        </f:facet>
-                    </p:cellEditor>
-                </p:column>
-
                 <p:column style="width:32px">
                     <p:rowEditor/>
+                </p:column>
+
+                <p:column style="width:65px">
+                    <p:commandButton value="Delete" action="#{dtCar.deleteRow}"
+                                     update=":carsForm:car,:carsForm:carMsgs">
+                        <f:setPropertyActionListener value="#{car}" target="#{dtCar.selectedCar}"/>
+                    </p:commandButton>
                 </p:column>
             </p:dataTable>
 
             <div class="ui-g">
                 <div class="ui-g-12">
-                    <p:commandButton value="Add new row" styleClass="ui-priority-primary"
+                    <p:commandButton value="Добавить авто" styleClass="ui-priority-primary"
                                      process="@this" update=":carsForm:carMsgs"
                                      actionListener="#{dtCar.onAddNew()}"
                                      ajax="false"

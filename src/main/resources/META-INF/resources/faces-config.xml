@@ -50,6 +50,11 @@
             <to-view-id>pages/admin/site-managers.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>goToLogPage</from-outcome>
+            <to-view-id>pages/admin/log.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     </navigation-rule>
 
 
