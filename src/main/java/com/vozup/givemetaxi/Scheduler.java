@@ -19,17 +19,17 @@ public class Scheduler {
 
     @Scheduled(initialDelay = 10000, fixedDelay = 5000)
     public void findFreeCar() {
-        System.out.println("scheldure is started");
+        //System.out.println("scheldure is started");
         DriverEntity driver = null;
         OrderEntity order = orderRepository.findFirstByReceivedIsFalse();
         if(order != null){
             driver = driverRepository.findFirstByBusyIsFalseAndCarCarTypeIs(order.getCarType());
         }else{
-            System.out.println("No avaible order");
+            //System.out.println("No avaible order");
             return;
         }
         if (driver == null){
-            System.out.println("No avaible cartype for order");
+            //System.out.println("No avaible cartype for order");
             return;
         }
         else {
@@ -41,6 +41,6 @@ public class Scheduler {
             order.setReceived(true);
             orderRepository.save(order);
         }
-        System.out.println("scheldure is finished");
+        //System.out.println("scheldure is finished");
     }
 }

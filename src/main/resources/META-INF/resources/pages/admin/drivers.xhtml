@@ -18,9 +18,10 @@
             <p:growl id="msgs" showDetail="true"/>
 
             <p:dataTable id="driver" var="driver" value="#{dtDriver.drivers}" editable="true" style="margin-bottom:20px"
-            paginator="true" paginatorPosition="bottom" rows="10">
+            paginator="true" paginatorPosition="bottom" rows="8">
 
-                <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}" update=":driverForm:msgs,:driverForm:driver"/>
+                <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}"
+                        update=":driverForm:msgs,:driverForm:driver,:carsForm:car"/>
                 <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update=":driverForm:msgs"/>
 
                 <p:column headerText="Id">
@@ -71,10 +72,18 @@
 
                 <p:column headerText="Car ID">
                     <p:cellEditor>
+
                         <f:facet name="output"><h:outputText value="#{driver.car.id != null ? driver.car.id : 'none'}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{driver.car.id}" style="width:100%"
-                                                           label="carId"/></f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{dtDriver.carId}"
+                                         style="width:100%" label="carId">
+                                <p:ajax />
+                            </p:inputText>
+                        </f:facet>
                     </p:cellEditor>
+                </p:column>
+                <p:column>
+
                 </p:column>
 
                 <p:column style="width:32px">
@@ -85,7 +94,8 @@
             <div class="ui-g">
                 <div class="ui-g-12">
                     <p:commandButton value="Add new row" styleClass="ui-priority-primary"
-                                     process="@this" update=":driverForm:msgs,:driverForm:driver"
+                                     process="@this" update=":driverForm:msgs"
+                                     ajax="false"
                                      actionListener="#{dtDriver.onAddNew()}"
                                      oncomplete="PF('driver').addRow();"/>
                 </div>
@@ -98,12 +108,13 @@
 
             <p:growl id="carMsgs" showDetail="true"/>
             <p:dataTable id="car" var="car" value="#{dtCar.cars}" editable="true" style="margin-bottom:20px"
-                         paginator="true" paginatorPosition="bottom" rows="10">
+                         paginator="true" paginatorPosition="bottom" rows="8">
                 <f:facet name="header">
                     Row Editing
                 </f:facet>
 
-                <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}" update=":carsForm:carMsgs,:carsForm:car"/>
+                <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}"
+                        update=":carsForm:carMsgs,:carsForm:car,:driverForm:driver"/>
                 <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update=":carsForm:carMsgs"/>
 
                 <p:column style="width:20px">
@@ -175,8 +186,12 @@
                 <p:column headerText="Driver ID">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.driver.id}"/></f:facet>
-                        <f:facet name="input"><p:inputText value="#{car.driver.id}" style="width:100%"
-                                                           label="driverId"/></f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{dtCar.driverId}"
+                                         style="width:100%" label="driverId">
+                                <p:ajax/>
+                            </p:inputText>
+                        </f:facet>
                     </p:cellEditor>
                 </p:column>
 
@@ -188,8 +203,9 @@
             <div class="ui-g">
                 <div class="ui-g-12">
                     <p:commandButton value="Add new row" styleClass="ui-priority-primary"
-                                     process="@this" update=":carsForm:carMsgs,carsForm:car"
+                                     process="@this" update=":carsForm:carMsgs"
                                      actionListener="#{dtCar.onAddNew()}"
+                                     ajax="false"
                                      oncomplete="PF('car').addRow();"/>
                 </div>
             </div>

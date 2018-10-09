@@ -27,7 +27,7 @@ public class CarEntity {
     //Номер страховки
     @Column(unique = true)
     private String numberOfCoverage;
-    @OneToOne()
+    @OneToOne
     private DriverEntity driver;
 
     public CarEntity() {
@@ -61,10 +61,6 @@ public class CarEntity {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        System.out.println(id);
     }
 
     public void setId(Long id) {
