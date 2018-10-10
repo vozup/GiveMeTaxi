@@ -1,6 +1,4 @@
-package com.vozup.givemetaxi;
-
-import javax.inject.Named;
+package com.vozup.givemetaxi.others;
 
 public class Call {
     private String phoneNumber;

@@ -3,7 +3,6 @@ package com.vozup.givemetaxi;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.OrderRepository;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.List;
@@ -15,11 +14,6 @@ public class OrderQuery {
 
     @Inject
     private OrderRepository repository;
-
-    @PostConstruct
-    void init(){
-
-    }
 
     public List<OrderEntity> getOrderList() {
         orderList = repository.findAll();

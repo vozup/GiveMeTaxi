@@ -3,29 +3,31 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <title>
-    Login Page
+    Operator Login Page
 </title>
 <h:head>
     <h:outputStylesheet name="primefaces/components.css"/>
+    <h:outputStylesheet name="style/style.css"/>
 </h:head>
-<h:body>
+<h:body styleClass="bodyForms">
     <div class="ui-g">
-        <div class="ui-g-3" style="margin: 0 auto">
-            <h:form>
-                <p:panelGrid columns="2">
-                    <p:outputLabel value="Login"/>
-                    <p:inputText value="#{checkOperator.login}"/>
+        <div class="ui-g-2 loginForms">
+            <p:fieldset>
+                <h:form prependId="false">
+                    <p:panelGrid columns="2" styleClass="ui-noborder">
+                        <p:outputLabel value="Login"/>
+                        <p:inputText value="#{checkOperator.login}"/>
 
-                    <p:outputLabel value="Password"/>
-                    <p:inputText value="#{checkOperator.password}"/>
+                        <p:outputLabel value="Password"/>
+                        <p:password value="#{checkOperator.password}"/>
 
-                    <p:commandButton action="#{checkOperator.checkPassword}" value="Login"/>
-                </p:panelGrid>
-            </h:form>
+                        <p:commandButton value="Login"/>
+                        <p:spacer/>
+                    </p:panelGrid>
+                </h:form>
+            </p:fieldset>
         </div>
     </div>
 </h:body>

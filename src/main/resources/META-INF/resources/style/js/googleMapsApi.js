@@ -1,6 +1,7 @@
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;libraries=places"
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 50.431782, lng: 30.516382},
@@ -9,9 +10,10 @@ function initMap() {
     //Define direction
     googleMapRouteRenderer = new google.maps.DirectionsRenderer();
     googleMapRouteRenderer.setMap(map);
-    //
+
     inputFrom = document.getElementById('centerForm:input-from');
     inputTo = document.getElementById('centerForm:input-to');
+    //
     var autocompleteFrom = new google.maps.places.Autocomplete(inputFrom);
     var autocompleteTo = new google.maps.places.Autocomplete(inputTo);
 
@@ -77,7 +79,7 @@ function calcRoute() {
         travelMode: google.maps.TravelMode.DRIVING
     };
     new google.maps.DirectionsService().route(request, function (response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
+        if (status === google.maps.DirectionsStatus.OK) {
             googleMapRouteRenderer.setDirections(response);
             var distance = response.routes[0].legs[0].distance;
             sendDistanceToServer(distance.text, distance.value);
@@ -109,4 +111,9 @@ function getCheckedRbValue() {
         }
     }
     return checkedRbValue;
+}
+
+function resetAddress() {
+    PF('fromAddress').jq.val("");
+    PF('toAddress').jq.val("");
 }

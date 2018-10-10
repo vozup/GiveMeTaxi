@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi;
+package com.vozup.givemetaxi.others;
 
 import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.entities.OrderEntity;

@@ -1,8 +1,8 @@
 package com.vozup.givemetaxi.views.operator;
 
-import com.vozup.givemetaxi.CarType;
-import com.vozup.givemetaxi.PriceForKm;
 import com.vozup.givemetaxi.entities.OrderEntity;
+import com.vozup.givemetaxi.enums.CarType;
+import com.vozup.givemetaxi.others.PriceForKm;
 import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
@@ -90,8 +90,8 @@ public class TakeOrder {
             log.error(orderEntity.toString());
         }
         showMessage("Заказ отправлен в обработку");
+        log.info("Заказ отправлен в обработку");
         resetAllFields();
-        log.info(orderEntity.toString());
     }
 
     //Доработать
@@ -109,8 +109,6 @@ public class TakeOrder {
     }
 
     private void resetAllFields() {
-        fromAddress = "";
-        toAddress = "";
         onDate = null;
         carType = CarType.STANDART;
         additionalService = null;

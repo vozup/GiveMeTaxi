@@ -37,6 +37,9 @@
             <p:column headerText="Время">
                 <h:outputText value="#{query.time.hours}:#{query.time.minutes}" />
             </p:column>
+            <p:column headerText="Цена">
+                <h:outputText value="#{query.price}"/>
+            </p:column>
             <p:column headerText="Принят?" style="width: 60px">
                 <h:outputText value="#{query.received}" />
             </p:column>

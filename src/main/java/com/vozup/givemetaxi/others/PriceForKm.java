@@ -1,4 +1,6 @@
-package com.vozup.givemetaxi;
+package com.vozup.givemetaxi.others;
+
+import com.vozup.givemetaxi.enums.CarType;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Named;

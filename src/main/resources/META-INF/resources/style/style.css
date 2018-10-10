@@ -2,6 +2,14 @@ body{
     font-size: 12px;
 }
 
+.loginForms {
+    margin: 210px auto;
+}
+
+.bodyForms {
+    background: url("#{resource['style/taxi.jpg']}") repeat;
+}
+
 .ui-clock{
     float: right;
 }

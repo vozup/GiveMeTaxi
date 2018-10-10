@@ -165,7 +165,8 @@
                 <p:column headerText="Car Type">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.carType}"/></f:facet>
-                        <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
+                        <p:importEnum type="com.vozup.givemetaxi.enums.CarType" var="CarType"
+                                      allSuffix="ALL_ENUM_VALUES"/>
                         <f:facet name="input">
                             <h:selectOneMenu value="#{car.carType}" style="width:100%">
                                 <f:selectItems value="#{CarType.ALL_ENUM_VALUES}" var="type" itemLabel="#{type}"

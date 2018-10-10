@@ -1,7 +1,7 @@
 package com.vozup.givemetaxi.repository;
 
-import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.DriverEntity;
+import com.vozup.givemetaxi.enums.CarType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

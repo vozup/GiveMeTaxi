@@ -25,10 +25,26 @@
     <p:layout fullPage="true" style="border: 0" id="layout">
         <!--TOP-->
         <p:layoutUnit id="top" position="north" size="50">
+
             <h:form>
-                <p:outputLabel value="Оператор: #{checkOperator.name} #{checkOperator.lastName}"/>
-                <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="float: right"/>
+                <div class="ui-g">
+                    <div class="ui-g-2">
+                        <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="position: absolute; float: left"/>
+                    </div>
+                    <div class="ui-g-4"/>
+                    <div class="ui-g-4">
+                        <p:outputLabel value="Оператор: #{checkOperator.name} #{checkOperator.lastName}"/>
+                    </div>
+                    <div class="ui-g-2">
+                        <h:form onsubmit="this.action='#{request.contextPath}/logout';"
+                                class="logout-form">
+                            <p:commandButton value="Logout" ajax="false"/>
+                        </h:form>
+                    </div>
+                </div>
             </h:form>
+
+
         </p:layoutUnit>
         <!--CENTER-->
         <p:layoutUnit id="center" position="center">
@@ -54,7 +70,7 @@
                                 showTodayButton="true" showButtonPanel="true" locale="ru" lang="ru" required="true"
                                 requiredMessage="Поле Дата обязательное"/>
 
-                    <p:importEnum type="com.vozup.givemetaxi.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
+                    <p:importEnum type="com.vozup.givemetaxi.enums.CarType" var="CarType" allSuffix="ALL_ENUM_VALUES"/>
                     <p:outputLabel for="car" value="Авто:"/>
                     <p:selectOneRadio id="car" value="#{takeOrder.carType}"
                                       required="true" style="text-align:left"
@@ -81,8 +97,9 @@
 
                     <p:button value="Проложить маршрут" onclick="calcRoute(); return false;"/>
 
-                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}"
-                                     update="centerForm"/>
+                    <p:commandButton value="В обработку" action="#{takeOrder.actionTakeOrder}" update="centerForm">
+                        <f:ajax event="click" oncomplete="resetAddress(); return false;"/>
+                    </p:commandButton>
                 </p:panelGrid>
             </h:form>
             <div id="map" style="width: 100%; height: 270px"/>

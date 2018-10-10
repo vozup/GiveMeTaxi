@@ -1,7 +1,7 @@
 package com.vozup.givemetaxi.dt;
 
-import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.entities.CarEntity;
+import com.vozup.givemetaxi.enums.CarType;
 import com.vozup.givemetaxi.repository.CarRepository;
 import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;

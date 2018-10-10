@@ -1,6 +1,6 @@
 package com.vozup.givemetaxi.entities;
 
-import com.vozup.givemetaxi.CarType;
+import com.vozup.givemetaxi.enums.CarType;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -49,8 +49,6 @@ public class OrderEntity {
                 ", clientPhoneNumber='" + clientPhoneNumber + '\'' +
                 ", price='" + price + '\'' +
                 ", received=" + received +
-                ", driver=" + driver +
-                ", operator=" + operator +
                 '}';
     }
 

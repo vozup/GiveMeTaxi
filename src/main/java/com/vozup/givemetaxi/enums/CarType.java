@@ -1,4 +1,4 @@
-package com.vozup.givemetaxi;
+package com.vozup.givemetaxi.enums;
 
 
 public enum CarType {

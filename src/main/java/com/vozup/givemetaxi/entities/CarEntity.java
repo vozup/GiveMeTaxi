@@ -1,7 +1,6 @@
 package com.vozup.givemetaxi.entities;
 
-import com.vozup.givemetaxi.CarType;
-import org.apache.commons.lang3.RandomUtils;
+import com.vozup.givemetaxi.enums.CarType;
 
 import javax.persistence.*;
 
@@ -31,16 +30,6 @@ public class CarEntity {
     private DriverEntity driver;
 
     public CarEntity() {
-    }
-
-    public CarEntity randomCar() {
-        CarEntity car = new CarEntity();
-        int a = RandomUtils.nextInt(10, 100);
-        car.setCarBrand("Brand" + a);
-        car.setCarModel("Model" + a);
-        car.setCarNumber("AA" + a + "22BB");
-        car.setCarType(CarType.STANDART);
-        return car;
     }
 
     public CarEntity(CarType carType, String carModel, String carNumber, String technicalCoupon, String numberOfCoverage) {
