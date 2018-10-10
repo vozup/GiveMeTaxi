@@ -1,7 +1,5 @@
 package com.vozup.givemetaxi.entities;
 
-import org.apache.commons.lang3.RandomUtils;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +32,23 @@ public class DriverEntity {
     public DriverEntity() {
     }
 
-    public DriverEntity randomDriver() {
-        DriverEntity driver = new DriverEntity();
-        int a = RandomUtils.nextInt(10, 100);
-        driver.setFirstName("NewDriver" + a);
-        driver.setLastName("NewDriver" + a);
-        driver.setPhoneNumber("+3809112322" + a);
-        return driver;
-    }
-
     public void addOrder(OrderEntity order){
         if (orders.isEmpty()) orders = new ArrayList<>();
         else orders.add(order);
+    }
+
+    @Override
+    public String toString() {
+        return "DriverEntity{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", carAddress='" + carAddress + '\'' +
+                ", car=" + car +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", smoking=" + smoking +
+                ", busy=" + busy +
+                '}';
     }
 
     public List<OrderEntity> getOrders() {

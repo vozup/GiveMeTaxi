@@ -16,6 +16,17 @@ public class OperatorEntity {
     @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
 
+    @Override
+    public String toString() {
+        return "OperatorEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

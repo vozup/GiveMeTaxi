@@ -2,13 +2,13 @@ package com.vozup.givemetaxi.views.operator;
 
 import com.vozup.givemetaxi.CarType;
 import com.vozup.givemetaxi.PriceForKm;
-import com.vozup.givemetaxi.entities.DriverEntity;
 import com.vozup.givemetaxi.entities.OrderEntity;
 import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import org.apache.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -17,7 +17,6 @@ import javax.inject.Named;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -55,7 +54,11 @@ public class TakeOrder {
     }
 
     public void actionTakeOrder(){
-        log.info("In actionTakeOrder()");
+        if (price == 0) {
+            showMessage("Проложите маршрут");
+            log.error("Не проложен маршрут");
+            return;
+        }
         additionalService = service.getSelectedAdditionalService();
 
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -78,27 +81,17 @@ public class TakeOrder {
         orderEntity.setCarType(carType);
         //Hardcore
         orderEntity.setOperator(repository.findById(1L).get());
+        orderEntity.setPrice(String.valueOf(price));
 
         try {
             orderRepository.save(orderEntity);
         }catch (DataIntegrityViolationException e){
             e.printStackTrace();
-            log.error(fromAddress + " " +
-                    toAddress + " " +
-                    onDate + " " +
-                    timeFormat.format(onDate) + " " +
-                    carType + " " +
-                    additionalService.toString() + " " +
-                    otherInfoToDriver);
+            log.error(orderEntity.toString());
         }
         showMessage("Заказ отправлен в обработку");
-        log.info(fromAddress + " " +
-                toAddress + " " +
-                onDate + " " +
-                timeFormat.format(onDate) + " " +
-                carType + " " +
-                additionalService.toString() + " " +
-                otherInfoToDriver);
+        resetAllFields();
+        log.info(orderEntity.toString());
     }
 
     //Доработать
@@ -113,6 +106,19 @@ public class TakeOrder {
         FacesMessage message = new FacesMessage(str);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, message);
+    }
+
+    private void resetAllFields() {
+        fromAddress = "";
+        toAddress = "";
+        onDate = null;
+        carType = CarType.STANDART;
+        additionalService = null;
+        otherInfoToDriver = "";
+        clientPhoneNumber = "";
+        distanceValue = "";
+        distanceText = "";
+        price = 0;
     }
 
     public CarType[] getCarTypes() {

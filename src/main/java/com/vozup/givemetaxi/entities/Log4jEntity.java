@@ -14,6 +14,7 @@ public class Log4jEntity {
     private Date date;
     private String level;
     private String logger;
+    @Column(length = 2048)
     private String message;
 
     public Integer getId() {

@@ -25,6 +25,8 @@ public class OrderEntity {
     private String additionalService;
     private String messageForDriver;
     private String clientPhoneNumber;
+    @Column(nullable = false)
+    private String price;
     private boolean received;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id", nullable = true)
@@ -33,6 +35,25 @@ public class OrderEntity {
     @JoinColumn(name = "operator_id", nullable = true)
     private OperatorEntity operator;
 
+    @Override
+    public String toString() {
+        return "OrderEntity{" +
+                "id=" + id +
+                ", fromAddress='" + fromAddress + '\'' +
+                ", toAddress='" + toAddress + '\'' +
+                ", date=" + date +
+                ", time=" + time +
+                ", carType=" + carType +
+                ", additionalService='" + additionalService + '\'' +
+                ", messageForDriver='" + messageForDriver + '\'' +
+                ", clientPhoneNumber='" + clientPhoneNumber + '\'' +
+                ", price='" + price + '\'' +
+                ", received=" + received +
+                ", driver=" + driver +
+                ", operator=" + operator +
+                '}';
+    }
+
     public Long getId() {
 
         return id;
@@ -40,6 +61,14 @@ public class OrderEntity {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public OperatorEntity getOperator() {
