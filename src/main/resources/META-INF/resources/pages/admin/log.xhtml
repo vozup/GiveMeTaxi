@@ -17,13 +17,13 @@
 
         <p:dataTable id="log" widgetVar="log" var="log" value="#{dtLog.logs}"
                      editable="true" style="margin-bottom:20px">
-            <p:column headerText="Date" filterBy="#{log.date}">
+            <p:column headerText="Date" sortBy="#{log.date}">
                 <h:outputText value="#{log.date}"/>
             </p:column>
-            <p:column headerText="Level" filterBy="#{log.level}">
+            <p:column headerText="Level" sortBy="#{log.level}">
                 <h:outputText value="#{log.level}"/>
             </p:column>
-            <p:column headerText="Class" filterBy="#{log.logger}">
+            <p:column headerText="Class" sortBy="#{log.logger}">
                 <h:outputText value="#{log.logger}"/>
             </p:column>
             <p:column headerText="Message" filterBy="#{log.message}">

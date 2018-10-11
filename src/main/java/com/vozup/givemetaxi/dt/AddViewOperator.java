@@ -1,7 +1,6 @@
 package com.vozup.givemetaxi.dt;
 
 import com.vozup.givemetaxi.entities.OperatorEntity;
-import com.vozup.givemetaxi.entities.SiteManagersEntity;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import org.apache.commons.lang3.RandomUtils;
 import org.primefaces.event.RowEditEvent;
@@ -24,8 +23,7 @@ public class AddViewOperator {
     public void onRowEdit(RowEditEvent event){
         OperatorEntity updated = (OperatorEntity) event.getObject();
 
-        repository.updateOperator(updated.getId(), updated.getLogin(), updated.getPassword(),
-                updated.getName(), updated.getLastName());
+        repository.save(updated);
 
         FacesMessage msg = new FacesMessage("Operator Edited", ((OperatorEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);

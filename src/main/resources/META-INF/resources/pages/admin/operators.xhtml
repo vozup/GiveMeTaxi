@@ -22,8 +22,8 @@
                 Row Editing with add functionality
             </f:facet>
 
-            <p:ajax event="rowEdit" listener="#{dtOperator.onRowEdit}" update=":form:msgs,:form:operator"/>
-            <p:ajax event="rowEditCancel" listener="#{dtOperator.onRowCancel}" update=":form:msgs"/>
+            <p:ajax event="rowEdit" listener="#{dtOperator.onRowEdit}" update="form:msgs,form:operator"/>
+            <p:ajax event="rowEditCancel" listener="#{dtOperator.onRowCancel}" update="form:msgs"/>
 
             <p:column headerText="Id">
                 <p:cellEditor>
@@ -85,9 +85,8 @@
         <div class="ui-g">
             <div class="ui-g-12">
                 <p:commandButton value="Add new row" styleClass="ui-priority-primary"
-                                 process="@this" update=":form:msgs"
-                                 actionListener="#{dtOperator.onAddNew()}"
-                                 oncomplete="PF('operator').addRow();"/>
+                                 update="form:msgs,form:operator"
+                                 actionListener="#{dtOperator.onAddNew()}"/>
             </div>
         </div>
     </h:form>

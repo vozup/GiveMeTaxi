@@ -21,8 +21,8 @@
             paginator="true" paginatorPosition="bottom" rows="8">
 
                 <p:ajax event="rowEdit" listener="#{dtDriver.onRowEdit}"
-                        update=":driverForm:msgs,:driverForm:driver,:carsForm:car"/>
-                <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update=":driverForm:msgs"/>
+                        update="driverForm:msgs,driverForm:driver,carsForm:car"/>
+                <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update="driverForm:msgs"/>
 
                 <p:column headerText="Id" style="width: 35px">
                     <p:cellEditor>
@@ -82,7 +82,7 @@
 
                 <p:column style="width:65px">
                     <p:commandButton value="Delete" action="#{dtDriver.deleteRow}"
-                                     update=":driverForm:msgs,driverForm:driver">
+                                     update="driverForm:msgs,driverForm:driver">
                         <f:setPropertyActionListener value="#{driver}" target="#{dtDriver.selectedDriver}"/>
                     </p:commandButton>
                 </p:column>
@@ -91,10 +91,8 @@
             <div class="ui-g">
                 <div class="ui-g-12">
                     <p:commandButton value="Добавить водителя" styleClass="ui-priority-primary"
-                                     process="@this" update=":driverForm:msgs"
-                                     ajax="false"
-                                     actionListener="#{dtDriver.onAddNew()}"
-                                     oncomplete="PF('driver').addRow();"/>
+                                     update="driverForm:msgs,driverForm:driver"
+                                     actionListener="#{dtDriver.onAddNew()}"/>
                 </div>
             </div>
         </h:form>
@@ -111,8 +109,8 @@
                 </f:facet>
 
                 <p:ajax event="rowEdit" listener="#{dtCar.onRowEdit}"
-                        update=":carsForm:carMsgs,:carsForm:car,:driverForm:driver"/>
-                <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update=":carsForm:carMsgs"/>
+                        update="carsForm:carMsgs,carsForm:car,driverForm:driver"/>
+                <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update="carsForm:carMsgs"/>
 
                 <p:column headerText="Id">
                     <p:cellEditor>
@@ -182,7 +180,7 @@
 
                 <p:column style="width:65px">
                     <p:commandButton value="Delete" action="#{dtCar.deleteRow}"
-                                     update=":carsForm:car,:carsForm:carMsgs">
+                                     update="carsForm:car,carsForm:carMsgs">
                         <f:setPropertyActionListener value="#{car}" target="#{dtCar.selectedCar}"/>
                     </p:commandButton>
                 </p:column>
@@ -191,10 +189,8 @@
             <div class="ui-g">
                 <div class="ui-g-12">
                     <p:commandButton value="Добавить авто" styleClass="ui-priority-primary"
-                                     process="@this" update=":carsForm:carMsgs"
-                                     actionListener="#{dtCar.onAddNew()}"
-                                     ajax="false"
-                                     oncomplete="PF('car').addRow();"/>
+                                     update="carsForm:car,carsForm:carMsgs"
+                                     actionListener="#{dtCar.onAddNew()}"/>
                 </div>
             </div>
         </h:form>

@@ -56,7 +56,7 @@ public class AddViewCar {
     public void deleteRow() {
         if (selectedCar.getDriver() != null) {
             showMessage("Can't delete, always set link to Driver");
-            LOGGER.error("Can't delete, always set link to Driver");
+            LOGGER.error("Cant delete, always set link to Driver");
         } else {
             repository.delete(selectedCar);
             LOGGER.info("Deleted Row with car ID: " + selectedCar.getId());

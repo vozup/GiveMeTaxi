@@ -31,7 +31,7 @@
                     <f:param name="category" value="orders"/>
                 </p:button>
                 <p:button styleClass="categoryButtons" value="Администраторы">
-                    <f:param name="category" value="site-manegers"/>
+                    <f:param name="category" value="site-managers"/>
                 </p:button>
                 <p:button styleClass="categoryButtons" value="Логи">
                     <f:param name="category" value="logs"/>
@@ -39,7 +39,7 @@
             </p:panelGrid>
         </p:layoutUnit>
         <p:layoutUnit id="center" position="center">
-            <ui:include src="drivers.xhtml"/>
+            <ui:include src="#{category.page}"/>
         </p:layoutUnit>
     </p:layout>
 </h:body>

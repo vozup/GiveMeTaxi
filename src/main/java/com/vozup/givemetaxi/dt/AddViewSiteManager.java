@@ -30,8 +30,7 @@ public class AddViewSiteManager {
     public void onRowEdit(RowEditEvent event) {
         SiteManagersEntity temp = (SiteManagersEntity)event.getObject();
 
-        repository.updateSiteManagersEntity(temp.getId(), temp.getLogin(),
-                temp.getPassword(), temp.getName(), temp.getLastName());
+        repository.save(temp);
 
         FacesMessage msg = new FacesMessage("Manager Edited", ((SiteManagersEntity) event.getObject()).getId().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
