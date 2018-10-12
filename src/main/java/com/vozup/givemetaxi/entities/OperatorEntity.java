@@ -1,5 +1,8 @@
 package com.vozup.givemetaxi.entities;
 
+import com.vozup.givemetaxi.enums.Roles;
+
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,18 +16,54 @@ public class OperatorEntity {
     private String lastName;
     private String login;
     private String password;
+    @Column(name = "answer")
+    private String answerOnSecretQuestion;
+    @OneToOne
+    private QuestionsIfFogotPassword question;
     @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 25)
+    private Roles role;
+
+    @PostConstruct
+    private void init() {
+        role = Roles.USER;
+    }
 
     @Override
     public String toString() {
-        return "OperatorEntity{" +
+        return "OperatorEntity(" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+                ", name= " + name +
+                ", lastName= " + lastName +
+                ", login= " + login +
+                ", password= " + password +
+                ')';
+    }
+
+    public String getAnswerOnSecretQuestion() {
+        return answerOnSecretQuestion;
+    }
+
+    public void setAnswerOnSecretQuestion(String answerOnSecretQuestion) {
+        this.answerOnSecretQuestion = answerOnSecretQuestion;
+    }
+
+    public QuestionsIfFogotPassword getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(QuestionsIfFogotPassword question) {
+        this.question = question;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public Long getId() {

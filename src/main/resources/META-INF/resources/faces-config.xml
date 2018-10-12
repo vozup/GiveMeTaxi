@@ -26,6 +26,11 @@
             <redirect/>
         </navigation-case>
         <navigation-case>
+            <from-outcome>goToForgotPasswordPage</from-outcome>
+            <to-view-id>pages/forgot-password.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>goToInvalidPasswordPage</from-outcome>
             <to-view-id>pages/invalid_password.xhtml</to-view-id>
             <redirect/>

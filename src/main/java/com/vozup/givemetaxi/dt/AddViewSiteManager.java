@@ -1,6 +1,7 @@
 package com.vozup.givemetaxi.dt;
 
 import com.vozup.givemetaxi.entities.SiteManagersEntity;
+import com.vozup.givemetaxi.enums.Roles;
 import com.vozup.givemetaxi.repository.SiteManagersRepository;
 import org.apache.commons.lang3.RandomUtils;
 import org.primefaces.event.RowEditEvent;
@@ -47,6 +48,7 @@ public class AddViewSiteManager {
         int a = RandomUtils.nextInt(0, 100);
         managersEntity.setLogin("admin" + a);
         managersEntity.setPassword("admin" + a);
+        managersEntity.setRole(Roles.ADMIN);
 
         repository.save(managersEntity);
 

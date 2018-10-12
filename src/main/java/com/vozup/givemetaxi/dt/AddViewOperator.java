@@ -1,6 +1,7 @@
 package com.vozup.givemetaxi.dt;
 
 import com.vozup.givemetaxi.entities.OperatorEntity;
+import com.vozup.givemetaxi.enums.Roles;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import org.apache.commons.lang3.RandomUtils;
 import org.primefaces.event.RowEditEvent;
@@ -40,6 +41,7 @@ public class AddViewOperator {
         int a = RandomUtils.nextInt(0, 100);
         operatorEntity.setLogin("operator" + a);
         operatorEntity.setPassword("operator" + a);
+        operatorEntity.setRole(Roles.USER);
 
         repository.save(operatorEntity);
 

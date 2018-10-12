@@ -77,6 +77,12 @@
                 </p:cellEditor>
             </p:column>
 
+            <p:column headerText="Secret Question">
+                <f:facet name="output">
+                    <h:outputText value="#{manager.question.id != null ? manager.question.question : ''}"/>
+                </f:facet>
+            </p:column>
+
             <p:column style="width:32px">
                 <p:rowEditor/>
             </p:column>
