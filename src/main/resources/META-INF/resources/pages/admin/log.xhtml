@@ -17,10 +17,10 @@
 
         <p:dataTable id="log" widgetVar="log" var="log" value="#{dtLog.logs}"
                      editable="true" style="margin-bottom:20px">
-            <p:column headerText="Date" sortBy="#{log.date}">
+            <p:column headerText="Date" sortBy="#{log.date}" width="20%">
                 <h:outputText value="#{log.date}"/>
             </p:column>
-            <p:column headerText="Level" sortBy="#{log.level}">
+            <p:column headerText="Level" sortBy="#{log.level}" width="10%">
                 <h:outputText value="#{log.level}"/>
             </p:column>
             <p:column headerText="Class" sortBy="#{log.logger}">
@@ -33,7 +33,7 @@
 
         <div class="ui-g">
             <div class="ui-g-12">
-                <p:commandButton value="Update" styleClass="ui-priority-primary"
+                <p:commandButton value="Clear" styleClass="ui-priority-primary"
                                  update=":logForm:log"/>
             </div>
         </div>
