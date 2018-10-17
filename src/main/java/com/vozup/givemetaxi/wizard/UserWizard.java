@@ -24,6 +24,8 @@ public class UserWizard implements Serializable {
     private String answer;
     private Roles role;
     private String question;
+    private boolean isOperator;
+    private boolean isManager;
     @Inject
     OperatorRepository operatorRepository;
     @Inject
@@ -33,6 +35,8 @@ public class UserWizard implements Serializable {
 
     @PostConstruct
     private void init() {
+        isManager = false;
+        isOperator = false;
         user = new User();
     }
 
@@ -43,18 +47,18 @@ public class UserWizard implements Serializable {
                 if (manager == null) {
                     showMessage("Login is incorect!");
                     return event.getOldStep();
-                }
+                } else isManager = true;
             } else if (role == Roles.USER) {
                 operator = operatorRepository.findByLogin(user.getLogin());
                 if (operator == null) {
                     showMessage("Login is incorect!");
                     return event.getOldStep();
-                }
+                } else isOperator = true;
             }
             return event.getNewStep();
         }
         if (event.getNewStep().equals("password")) {
-            if (manager != null) {
+            if (isManager) {
                 if (manager.getQuestion() != null) {
                     if (manager.getAnswerOnSecretQuestion().equals(answer)) {
                         return event.getNewStep();
@@ -66,7 +70,7 @@ public class UserWizard implements Serializable {
                     showMessage("Question is not attached, please call you'r admin");
                     return event.getOldStep();
                 }
-            } else if (operator != null) {
+            } else if (isOperator) {
                 if (operator.getQuestion() != null) {
                     if (operator.getAnswerOnSecretQuestion().equals(answer)) {
                         return event.getNewStep();
@@ -83,7 +87,30 @@ public class UserWizard implements Serializable {
                 return event.getOldStep();
             }
         }
+        if (event.getNewStep().equals("confirm")) {
+            if (!newPassword.trim().equals(repeatNewPassword.trim())) {
+                showMessage("Passwords isn't equals");
+                return event.getOldStep();
+            }
+            user.setNewPassword(newPassword);
+
+            if (isManager) {
+                manager.setPassword(newPassword);
+                managersRepository.save(manager);
+                return event.getNewStep();
+            } else if (isOperator) {
+                operator.setPassword(newPassword);
+                operatorRepository.save(operator);
+                return event.getNewStep();
+            }
+        }
         return event.getNewStep();
+    }
+
+    public String goToLogin() {
+        if (isOperator) {
+            return "goToOperatorLoginPage";
+        } else return "goToManagerLoginPage";
     }
 
     public String getQuestion() {

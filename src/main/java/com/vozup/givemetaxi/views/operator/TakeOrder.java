@@ -7,6 +7,7 @@ import com.vozup.givemetaxi.repository.DriverRepository;
 import com.vozup.givemetaxi.repository.OperatorRepository;
 import com.vozup.givemetaxi.repository.OrderRepository;
 import org.apache.log4j.Logger;
+import org.primefaces.PrimeFaces;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.annotation.PostConstruct;
@@ -54,11 +55,11 @@ public class TakeOrder {
     }
 
     public void actionTakeOrder(){
-        if (price == 0) {
-            showMessage("Проложите маршрут");
-            log.error("Не проложен маршрут");
-            return;
-        }
+//        if (price == 0) {
+//            showMessage("Проложите маршрут");
+//            log.error("Не проложен маршрут");
+//            return;
+//        }
         additionalService = service.getSelectedAdditionalService();
 
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -91,7 +92,12 @@ public class TakeOrder {
         }
         showMessage("Заказ отправлен в обработку");
         log.info("Заказ отправлен в обработку");
-        resetAllFields();
+        //PrimeFaces.current().executeScript("");
+        //resetAllFields();
+    }
+
+    public void reset() {
+        PrimeFaces.current().resetInputs("centerForm:orderForm");
     }
 
     //Доработать
