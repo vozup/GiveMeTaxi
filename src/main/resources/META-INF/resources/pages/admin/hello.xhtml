@@ -11,6 +11,8 @@
     <h:outputStylesheet name="style/style.css"/>
 </h:head>
 <h:body>
-    <p:outputLabel value="Hello"/>
+    <h:panelGrid columns="2" columnClasses="left,right" style="width:100%">
+        <p:chart type="bar" model="#{orderChart.barChartModel}" style="width:400px;"/>
+    </h:panelGrid>
 </h:body>
 </html>
