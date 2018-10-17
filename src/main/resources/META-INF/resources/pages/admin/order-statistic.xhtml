@@ -31,6 +31,12 @@
             <p:column headerText="Куда" colspan="2">
                 <h:outputText value="#{query.toAddress}" />
             </p:column>
+            <p:column headerText="Водитель" colspan="2">
+                <h:outputText value="#{query.driver.lastName}"/>
+            </p:column>
+            <p:column headerText="Логин оператора" colspan="2">
+                <h:outputText value="#{query.operator.login}"/>
+            </p:column>
             <p:column headerText="Дата">
                 <h:outputText value="#{query.date}" />
             </p:column>

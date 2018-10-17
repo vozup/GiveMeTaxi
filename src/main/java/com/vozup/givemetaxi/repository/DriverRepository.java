@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface DriverRepository extends JpaRepository<DriverEntity, Long> {
     DriverEntity findFirstById(Long id);
+
+    DriverEntity findFirstByBusyIs(boolean isBusy);
     DriverEntity findFirstByBusyIsFalseAndCarCarTypeIs(CarType carType);
     List<DriverEntity> findAllByBusyIsFalse();
 

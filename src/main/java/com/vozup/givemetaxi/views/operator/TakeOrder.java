@@ -55,11 +55,11 @@ public class TakeOrder {
     }
 
     public void actionTakeOrder(){
-//        if (price == 0) {
-//            showMessage("Проложите маршрут");
-//            log.error("Не проложен маршрут");
-//            return;
-//        }
+        if (price == 0) {
+            showMessage("Проложите маршрут");
+            log.error("Не проложен маршрут");
+            return;
+        }
         additionalService = service.getSelectedAdditionalService();
 
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -92,12 +92,12 @@ public class TakeOrder {
         }
         showMessage("Заказ отправлен в обработку");
         log.info("Заказ отправлен в обработку");
-        //PrimeFaces.current().executeScript("");
-        //resetAllFields();
+        resetAllFields();
     }
 
     public void reset() {
-        PrimeFaces.current().resetInputs("centerForm:orderForm");
+        PrimeFaces.current().executeScript("PF('fromAddress').jq.val(\"\");\n" +
+                "PF('toAddress').jq.val(\"\");");
     }
 
     //Доработать
@@ -117,7 +117,7 @@ public class TakeOrder {
     private void resetAllFields() {
         onDate = null;
         carType = CarType.STANDART;
-        additionalService = null;
+        additionalService.clear();
         otherInfoToDriver = "";
         clientPhoneNumber = "";
         distanceValue = "";
