@@ -19,6 +19,7 @@ public class AddViewCar {
     private List<CarEntity> cars;
     private Long driverId;
     private CarEntity selectedCar;
+    private Integer incr = 0;
 
     @Inject
     CarRepository repository;
@@ -38,14 +39,17 @@ public class AddViewCar {
 
     public void onAddNew() {
         // Add one new car to the table:
-        CarEntity carEntity = new CarEntity();
-
-        carEntity.setCarType(CarType.STANDART);
+        CarEntity carEntity = new CarEntity(CarType.STANDART,
+                "",
+                "AA12" + incr + "" + incr + "BB",
+                incr.toString(),
+                incr.toString());
 
         repository.save(carEntity);
 
         showMessage("New Car added");
         LOGGER.info("Add Row with car ID: ");
+        incr++;
     }
 
     private void showMessage(String str){

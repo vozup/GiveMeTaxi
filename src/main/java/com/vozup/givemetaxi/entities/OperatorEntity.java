@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "operator")
+@Table(name = "operator", schema = "schema")
 public class OperatorEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String lastName;

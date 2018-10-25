@@ -8,7 +8,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "orders")
+@Table(name = "orders", schema = "schema")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

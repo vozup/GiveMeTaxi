@@ -29,7 +29,7 @@ public class AddViewDriver {
         DriverEntity updated = (DriverEntity) event.getObject();
         if (updated.getCar() == null && carId == null) return;
         ///
-        if (repository.findFirstById(carId) != null) {
+        if (repository.findFirstByCarId(carId) != null) {
             showMessage("Driver with car already exist");
             LOGGER.error("Driver with car already exist");
             return;

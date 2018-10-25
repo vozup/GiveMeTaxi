@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "siteManagers")
+@Table(name = "siteManagers", schema = "schema")
 public class SiteManagersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
