@@ -27,11 +27,14 @@ public class AddViewDriver {
 
     public void onRowEdit(RowEditEvent event) {
         DriverEntity updated = (DriverEntity) event.getObject();
-        if (updated.getCar() == null && carId == null) return;
+        //System.out.println(carId + " " + updated.getCar().getId());
+        if (updated.getCar() == null && carId == null) {
+            repository.save(updated);
+            return;
+        }
         ///
-        if (repository.findFirstByCarId(carId) != null) {
-            showMessage("Driver with car already exist");
-            LOGGER.error("Driver with car already exist");
+        if (repository.findFirstByCarId(carId) != null && carId == updated.getCar().getId()) {
+            repository.save(updated);
             return;
         }
 

@@ -49,11 +49,11 @@ public class Scheduler {
             driver.setBusy(true);
             driverRepository.save(driver);
             //Send SMS
-//            String message = driver.getCar().getCarModel() + " "
-//                    + driver.getCar().getCarBrand() + " "
-//                    + driver.getCar().getCarNumber() + " "
-//                    + driver.getPhoneNumber();
-//            twilio.sendSms("+380972763063", message);
+            String message = driver.getCar().getCarModel() + " "
+                    + driver.getCar().getCarBrand() + " "
+                    + driver.getCar().getCarNumber() + " "
+                    + driver.getPhoneNumber();
+            twilio.sendSms("+380972763063", message);
 
             order.setDriver(driver);
             order.setReceived(true);

@@ -5,6 +5,7 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
         http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
     <navigation-rule>
+        <from-view-id>*</from-view-id>
         <navigation-case>
             <from-outcome>goToOperatorHomePage</from-outcome>
             <to-view-id>pages/operator/index.xhtml</to-view-id>

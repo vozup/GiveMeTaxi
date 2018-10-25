@@ -3,6 +3,7 @@ package com.vozup.givemetaxi.dt;
 import com.vozup.givemetaxi.entities.CarEntity;
 import com.vozup.givemetaxi.enums.CarType;
 import com.vozup.givemetaxi.repository.CarRepository;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.log4j.Logger;
 import org.primefaces.event.RowEditEvent;
 
@@ -19,7 +20,6 @@ public class AddViewCar {
     private List<CarEntity> cars;
     private Long driverId;
     private CarEntity selectedCar;
-    private Integer incr = 0;
 
     @Inject
     CarRepository repository;
@@ -39,17 +39,17 @@ public class AddViewCar {
 
     public void onAddNew() {
         // Add one new car to the table:
+        int a = RandomUtils.nextInt(0, 100);
         CarEntity carEntity = new CarEntity(CarType.STANDART,
                 "",
-                "AA12" + incr + "" + incr + "BB",
-                incr.toString(),
-                incr.toString());
+                "AA12" + a + "BB",
+                String.valueOf(a),
+                String.valueOf(a));
 
         repository.save(carEntity);
 
         showMessage("New Car added");
-        LOGGER.info("Add Row with car ID: ");
-        incr++;
+        //LOGGER.info("Add Row with car ID: ");
     }
 
     private void showMessage(String str){
