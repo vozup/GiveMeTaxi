@@ -31,16 +31,6 @@
                     <div class="ui-g-2">
                         <p:clock pattern="HH:mm:ss dd.MM.yyyy" mode="server" style="position: absolute; float: left"/>
                     </div>
-                    <div class="ui-g-4"/>
-                    <div class="ui-g-4">
-                        <p:outputLabel value="Оператор: #{checkOperator.name} #{checkOperator.lastName}"/>
-                    </div>
-                    <div class="ui-g-2">
-                        <h:form onsubmit="this.action='#{request.contextPath}/logout';"
-                                class="logout-form">
-                            <p:commandButton value="Logout" ajax="false"/>
-                        </h:form>
-                    </div>
                 </div>
             </h:form>
 
@@ -102,7 +92,7 @@
                     </p:commandButton>
                 </p:panelGrid>
             </h:form>
-            <div id="map" style="width: 100%; height: 270px"/>
+            <div id="map" style="width: 100%; height: 300px"/>
             <h:form id="formResult">
                 <p:inputText type="hidden" widgetVar="distanceText" value="#{takeOrder.distanceText}"/>
                 <p:inputText type="hidden" widgetVar="distanceValue" value="#{takeOrder.distanceValue}"/>

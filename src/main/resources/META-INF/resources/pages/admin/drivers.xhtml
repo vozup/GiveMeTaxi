@@ -24,7 +24,7 @@
                         update="driverForm:msgs,driverForm:driver,carsForm:car"/>
                 <p:ajax event="rowEditCancel" listener="#{dtDriver.onRowCancel}" update="driverForm:msgs"/>
 
-                <p:column headerText="Id" style="width: 35px">
+                <p:column headerText="ID" style="width: 35px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{driver.id}"/></f:facet>
                         <f:facet name="input"><p:inputText id="modelInput" value="#{driver.id}" style="width:100%"
@@ -63,7 +63,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="ID автомобиля" style="width: 100px">
+                <p:column headerText="ID автомобиля" style="width: 75px">
                     <p:cellEditor>
 
                         <f:facet name="output"><h:outputText value="#{driver.car.id}"/></f:facet>
@@ -80,8 +80,8 @@
                     <p:rowEditor/>
                 </p:column>
 
-                <p:column style="width:65px">
-                    <p:commandButton value="Delete" action="#{dtDriver.deleteRow}"
+                <p:column style="width:90px">
+                    <p:commandButton value="Удалить" action="#{dtDriver.deleteRow}"
                                      update="driverForm:msgs,driverForm:driver">
                         <f:setPropertyActionListener value="#{driver}" target="#{dtDriver.selectedDriver}"/>
                     </p:commandButton>
@@ -112,7 +112,7 @@
                         update="carsForm:carMsgs,carsForm:car,driverForm:driver"/>
                 <p:ajax event="rowEditCancel" listener="#{dtCar.onRowCancel}" update="carsForm:carMsgs"/>
 
-                <p:column headerText="Id">
+                <p:column headerText="ID" style="width: 32px">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.id}"/></f:facet>
                         <f:facet name="input"><p:inputText id="modelCarInput" value="#{car.id}" style="width:100%"
@@ -120,7 +120,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Car Brand">
+                <p:column headerText="Марка авто">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.carBrand}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{car.carBrand}" style="width:100%"
@@ -128,7 +128,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Car Model">
+                <p:column headerText="Модель авто">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.carModel}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{car.carModel}" style="width:100%"
@@ -136,7 +136,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Car Number">
+                <p:column headerText="Номер авто">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.carNumber}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{car.carNumber}" style="width:100%"
@@ -144,7 +144,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Technical coupon">
+                <p:column headerText="Номер талона техобслуживания">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.technicalCoupon}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{car.technicalCoupon}" style="width:100%"
@@ -152,7 +152,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Number of coverage">
+                <p:column headerText="Номер страховки">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.numberOfCoverage}"/></f:facet>
                         <f:facet name="input"><p:inputText value="#{car.numberOfCoverage}" style="width:100%"
@@ -160,7 +160,7 @@
                     </p:cellEditor>
                 </p:column>
 
-                <p:column headerText="Car Type">
+                <p:column headerText="Сервис">
                     <p:cellEditor>
                         <f:facet name="output"><h:outputText value="#{car.carType}"/></f:facet>
                         <p:importEnum type="com.vozup.givemetaxi.enums.CarType" var="CarType"
@@ -178,8 +178,8 @@
                     <p:rowEditor/>
                 </p:column>
 
-                <p:column style="width:65px">
-                    <p:commandButton value="Delete" action="#{dtCar.deleteRow}"
+                <p:column style="width:90px">
+                    <p:commandButton value="Удалить" action="#{dtCar.deleteRow}"
                                      update="carsForm:car,carsForm:carMsgs">
                         <f:setPropertyActionListener value="#{car}" target="#{dtCar.selectedCar}"/>
                     </p:commandButton>

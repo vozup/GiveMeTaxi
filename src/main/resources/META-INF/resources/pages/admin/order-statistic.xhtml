@@ -16,13 +16,13 @@
 
         <p:dataTable id="orderQuery" var="query" value="#{orderQuery.orderList}" scrollHeight="50"
                      rowStyleClass="bottom-row">
-            <p:column headerText="Id" style="width: 35px">
+            <p:column headerText="ID" style="width: 35px">
                 <h:outputText value="#{query.id}" />
             </p:column>
-            <p:column headerText="Номер заказчика" width="120px">
+            <p:column headerText="Номер заказчика" style="width: 120px">
                 <h:outputText value="#{query.clientPhoneNumber}" />
             </p:column>
-            <p:column headerText="Сервис">
+            <p:column headerText="Сервис" style="width: 80px">
                 <h:outputText value="#{query.carType}" />
             </p:column>
             <p:column headerText="Откуда" colspan="2">
@@ -31,10 +31,10 @@
             <p:column headerText="Куда" colspan="2">
                 <h:outputText value="#{query.toAddress}" />
             </p:column>
-            <p:column headerText="Водитель" colspan="2">
+            <p:column headerText="Водитель">
                 <h:outputText value="#{query.driver.lastName}"/>
             </p:column>
-            <p:column headerText="Логин оператора" colspan="2">
+            <p:column headerText="Логин оператора">
                 <h:outputText value="#{query.operator.login}"/>
             </p:column>
             <p:column headerText="Дата">
@@ -47,7 +47,7 @@
                 <h:outputText value="#{query.price}"/>
             </p:column>
             <p:column headerText="Принят?" style="width: 60px">
-                <h:outputText value="#{query.received}" />
+                <h:outputText value="#{query.received  == true ? 'да' : 'нет'}"/>
             </p:column>
         </p:dataTable>
     </h:form>

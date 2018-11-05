@@ -25,7 +25,7 @@
             <p:ajax event="rowEdit" listener="#{dtOperator.onRowEdit}" update="form:msgs,form:operator"/>
             <p:ajax event="rowEditCancel" listener="#{dtOperator.onRowCancel}" update="form:msgs"/>
 
-            <p:column headerText="Id">
+            <p:column headerText="ID">
                 <p:cellEditor>
                     <f:facet name="output"><h:outputText value="#{operator.id}"/></f:facet>
                     <f:facet name="input"><p:inputText id="modelInput" value="#{operator.id}"
@@ -33,7 +33,7 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Login">
+            <p:column headerText="Логин">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText value="#{operator.login}"/>
@@ -44,18 +44,18 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Password">
+            <p:column headerText="Пароль">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText value="#{operator.password}"/>
                     </f:facet>
                     <f:facet name="input">
-                        <p:inputText value="#{operator.password}" style="width:100%" label="Password"/>
+                        <p:password value="#{operator.password}" style="width:100%" label="Password"/>
                     </f:facet>
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Name">
+            <p:column headerText="Имя">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText value="#{operator.name}"/>
@@ -66,7 +66,7 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Last Name">
+            <p:column headerText="Фамилия">
                 <p:cellEditor>
                     <f:facet name="output">
                         <h:outputText value="#{operator.lastName}"/>
@@ -77,7 +77,7 @@
                 </p:cellEditor>
             </p:column>
 
-            <p:column headerText="Secret Question">
+            <p:column headerText="Вопрос">
                 <f:facet name="output">
                     <h:outputText value="#{operator.question.id != null ? operator.question.question : ''}"/>
                 </f:facet>
@@ -90,7 +90,7 @@
 
         <div class="ui-g">
             <div class="ui-g-12">
-                <p:commandButton value="Add new row" styleClass="ui-priority-primary"
+                <p:commandButton value="Добавить" styleClass="ui-priority-primary"
                                  update="form:msgs,form:operator"
                                  actionListener="#{dtOperator.onAddNew()}"/>
             </div>
