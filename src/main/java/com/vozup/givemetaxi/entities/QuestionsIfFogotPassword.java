@@ -3,7 +3,7 @@ package com.vozup.givemetaxi.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "questions", schema = "schema")
+@Table(name = "questions")
 public class QuestionsIfFogotPassword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,3 +1,4 @@
 .idea
 *.iml
-application.properties
+TODO.txt
+src/main/resources/twilio.properties

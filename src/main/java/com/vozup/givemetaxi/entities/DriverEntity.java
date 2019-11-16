@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "driver", schema = "schema")
+@Table(name = "driver")
 public class DriverEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "FIRSTNAME")
     private String firstName;
     private String lastName;
     private String carAddress;

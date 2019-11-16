@@ -1,29 +1,31 @@
 package com.vozup.givemetaxi.twilio;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "twilio")
+@PropertySource("twilio.properties")
 public class TwilioConfig {
+    @Value("${twilio.sid:default}")
+    private String twilioUser;
 
-    private String token;
+    @Value("${twilio.token:default}")
+    private String twilioPassword;
 
-    private String sid;
-
-    public String getToken() {
-        return token;
+    public String getTwilioUser() {
+        return twilioUser;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setTwilioUser(String twilioUser) {
+        this.twilioUser = twilioUser;
     }
 
-    public String getSid() {
-        return sid;
+    public String getTwilioPassword() {
+        return twilioPassword;
     }
 
-    public void setSid(String sid) {
-        this.sid = sid;
+    public void setTwilioPassword(String twilioPassword) {
+        this.twilioPassword = twilioPassword;
     }
 }

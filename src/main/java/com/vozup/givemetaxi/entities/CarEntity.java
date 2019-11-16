@@ -5,20 +5,21 @@ import com.vozup.givemetaxi.enums.CarType;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "cars", schema = "schema")
+@Table(name = "cars")
 public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //Типа сервис(Стандарт, Комфорт, Бизнес, Универсал, Микроавтобус)
     @Enumerated(EnumType.STRING)
+    @Column(name = "CARTYPE")
     private CarType carType;
     //Модель машины
     private String carModel;
     //Марка машины
     private String carBrand;
     //Номер машины
-    @Column(unique = true)
+    @Column(name = "CARNUMBER", unique = true)
     private String carNumber;
     //Техпаспорт
     @Column(unique = true)

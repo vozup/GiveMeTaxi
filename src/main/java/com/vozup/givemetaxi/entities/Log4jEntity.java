@@ -5,7 +5,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "logs", schema = "schema")
+@Table(name = "logs")
 public class Log4jEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

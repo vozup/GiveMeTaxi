@@ -15,15 +15,10 @@ public class TwilioInit {
     @Inject
     TwilioConfig twilioConfig;
 
-//    @PostConstruct
-//    public void init() {
-//        Twilio.init(twilioConfig.getSid(), twilioConfig.getToken());
-//    }
-
     @PostConstruct
     public void init() {
-        Twilio.init("AC53ee0f9347c609d1656667e217cde2ae",
-                "7d43bd41589a5399855eef6afde5c57c");
+        Twilio.init(twilioConfig.getTwilioUser(),
+                twilioConfig.getTwilioPassword());
     }
 
 
@@ -31,7 +26,7 @@ public class TwilioInit {
     public void sendSms(String toNumber, String textMessage) {
         Message message = Message
                 .creator(new PhoneNumber(toNumber), // to
-                        new PhoneNumber("+12512572679"), // from
+                        new PhoneNumber("+14432191478"), // from
                         textMessage)
                 .create();
 

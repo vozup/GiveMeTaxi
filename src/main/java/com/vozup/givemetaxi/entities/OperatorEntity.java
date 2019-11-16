@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "operator", schema = "schema")
+@Table(name = "operator")
 public class OperatorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,7 @@ public class OperatorEntity {
     @OneToMany(mappedBy = "operator", fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 25)
+    @Column(name = "role", nullable = false, length = 25)
     private Roles role;
 
     @PostConstruct
